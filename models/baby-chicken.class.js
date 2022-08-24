@@ -1,12 +1,12 @@
-class Chicken extends MovableObject {
-    width = 65;
-    height = 85;
-    y = 340;
+class BabyChicken extends MovableObject {
+    width = 40;
+    height = 50;
+    y = 370;
 
     imagesChickenWalking = [
-        '../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        '../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        '../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
+        '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        '../img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
     ];
 
 
@@ -41,5 +41,4 @@ class Chicken extends MovableObject {
             this.playAnimation(this.imagesChickenWalking);
         }, 100);
     }
-
-}    
+}
