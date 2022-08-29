@@ -45,4 +45,23 @@ class DrawableObjects {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
+
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+
+    flipImage(ctx){
+        ctx.save();
+        ctx.translate(this.width, 0);
+        ctx.scale(-1 , 1);
+        this.x = this.x * -1;
+    }
+
+
+    flipImageBack(ctx){
+        ctx.restore();
+        this.x = this.x * -1;
+    }
 }
