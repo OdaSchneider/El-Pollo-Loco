@@ -1,4 +1,4 @@
-class DrawableObjects {
+class DrawableObjects{
     x = 120;
     y = 175;
     height = 250;
@@ -7,7 +7,6 @@ class DrawableObjects {
     img;
     imageCache = {};
     currentImage = 0;
-
 
     /**
      * loads the start image
@@ -34,34 +33,25 @@ class DrawableObjects {
 
     }
 
-    /**
-     * set one image after another to animate movement
-     * 
-     * @param {Array} images - array of Images used for animation
-     */
-    playAnimation(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
-
 
     draw(ctx){
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
 
-    flipImage(ctx){
-        ctx.save();
-        ctx.translate(this.width, 0);
-        ctx.scale(-1 , 1);
-        this.x = this.x * -1;
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof BabyChicken) {
+            ctx.beginPath();
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
 
 
-    flipImageBack(ctx){
-        ctx.restore();
-        this.x = this.x * -1;
-    }
+
+
+
+
+
+
 }

@@ -4,6 +4,22 @@ class MovableObject extends DrawableObjects {
     speedY = 0;
     acceleration = 1;
     changeDirection = false;
+    energy = 100;
+    lastHit = 0;
+
+
+    /**
+     * set one image after another to animate movement
+     * 
+     * @param {Array} images - array of Images used for animation
+     */
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
 
     /**
      * increases the x coordinate and moves objects to the right
@@ -31,22 +47,42 @@ class MovableObject extends DrawableObjects {
     }
 
 
-    aboveGround(){
+    aboveGround() {
         return this.y < 175;
     }
 
 
-    jump(){
+    jump() {
         this.speedY = 15;
     }
 
 
-    drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+    isColliding(object) {
+        return this.x + this.width > object.x &&
+            this.y + this.height > object.y &&
+            this.x < object.x &&
+            this.y < object.y + object.height;
+    }
+
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    isHurt() {
+        let timeSinceLastHit = new Date().getTime() - this.lastHit;
+        return timeSinceLastHit < 500;
+    }
+
+
+    isDead() {
+        return this.energy == 0;
     }
 
 }
