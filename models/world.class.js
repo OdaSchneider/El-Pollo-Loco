@@ -5,7 +5,10 @@ class World {
     cameraX = 0;
 
     character = new Character();
-    healthStatus = new healthStatusBar();
+    healthStatus = new HealthStatusBar();
+    coinStatus = new CoinStatusBar();
+    bottleStatus = new BottleStatusBar();
+    throwableObject = [];
 
     level = level1;
 
@@ -16,7 +19,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
 
@@ -25,35 +28,78 @@ class World {
     }
 
 
-    checkCollisions(){
+    run(){
         setInterval(()=>{
-            this.level.enemies.forEach((enemy)=>{
-                if(this.character.isColliding(enemy)){
-                    this.character.hit();
-                    this.healthStatus.setPercentage(this.character.energy);
-                }
-            });
-        }, 1000)
+            this.checkThrowObject();
+            this.checkCollisionEnemy();
+        }, 300)
+        setInterval(()=>{
+            this.checkCollisionCoin();
+        }, 1000/60);
+    }
+
+
+    checkCollisionEnemy(){
+        this.level.enemies.forEach((enemy)=>{
+            if(this.character.isColliding(enemy)){
+                this.character.hit();
+                this.healthStatus.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+
+    checkCollisionCoin(){
+        this.level.coins.forEach((coin)=>{
+            if(this.character.isColliding(coin)){
+                let i = this.level.coins.indexOf(coin);
+                this.level.coins.splice(i, 1);
+            }
+        });
+    }
+
+
+    checkThrowObject(){
+        if(this.keyboard.D){
+            let bottle = new ThrowableObjects(this.character.x + 100, this.character.y +100);
+            this.throwableObject.push(bottle);
+        }
     }
 
 
     draw(){
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.cameraX , 0);
+        this.clearCanvas();
+        this.drawLevel();
+        this.drawFixedObjects();
+        this.repeatDrawFunction();
+    }
 
+
+    clearCanvas(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+
+    drawLevel(){
+        this.ctx.translate(this.cameraX , 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addToMap(this.character);
-
-        this.ctx.translate(-this.cameraX , 0);
-        //space for fixed objects
-        this.addToMap(this.healthStatus );
-        this.ctx.translate(this.cameraX , 0);
-
         this.addObjectsToMap(this.level.enemies);
-
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.throwableObject);
+        this.addToMap(this.character);
         this.ctx.translate(-this.cameraX , 0);
+    }
 
+
+    drawFixedObjects(){
+        this.addToMap(this.healthStatus);
+        this.addToMap(this.coinStatus);
+        // this.addToMap(this.bottleStatus);
+    }
+
+
+    repeatDrawFunction(){
         self = this;
         requestAnimationFrame(function (){
             self.draw();
@@ -74,7 +120,6 @@ class World {
         }
 
         object.draw(this.ctx);
-        object.drawFrame(this.ctx);
 
 
         if(object.changeDirection){

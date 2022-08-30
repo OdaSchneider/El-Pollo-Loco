@@ -35,7 +35,7 @@ class BabyChicken extends MovableObject {
     walking(){
          setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60);
+        }, 1000 / 80);
 
         setInterval(() => {
             this.playAnimation(this.imagesChickenWalking);

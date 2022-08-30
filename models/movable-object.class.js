@@ -43,17 +43,21 @@ class MovableObject extends DrawableObjects {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
+        }, 1000 / 60);
     }
 
 
     aboveGround() {
-        return this.y < 175;
+        if (this instanceof ThrowableObjects) { //trowable objects dont stop to fall
+            return true;
+        } else {
+            return this.y < 175;
+        }
     }
 
 
     jump() {
-        this.speedY = 15;
+        this.speedY = 20;
     }
 
 

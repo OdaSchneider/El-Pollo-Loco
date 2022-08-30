@@ -72,22 +72,8 @@ class Character extends MovableObject {
             this.world.cameraX = -this.x + 100;
         }, 1000 / 30);
 
-
-        setInterval(() => {
-            if(this.isDead()){
-                this.playAnimation(this.imagesDead);
-            } else if(this.isHurt()){
-                this.playAnimation(this.imagesHurt);
-            } else if (this.aboveGround()) {
-                this.playAnimation(this.imagesCharakterJumping);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.imagesCharakterWalking);
-                }
-            }
-        }, 25);
+        this.setAnimation();
     }
-
 
 
     /**
@@ -106,9 +92,29 @@ class Character extends MovableObject {
             this.walkingSound.play();
         }
 
-        if (this.world.keyboard.SPACE && !this.aboveGround()){
+        if (this.world.keyboard.SPACE && !this.aboveGround()) {
             this.jump();
         }
+    }
+
+    /**
+     * checks the status of gameplay and sets suitable animation
+     */
+    setAnimation() {
+        setInterval(() => {
+            if (this.isDead()) {
+                this.playAnimation(this.imagesDead);
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.imagesHurt);
+
+            } else if (this.aboveGround()) {
+                this.playAnimation(this.imagesCharakterJumping);
+
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.imagesCharakterWalking);
+            }
+        }, 50);
     }
 
 }

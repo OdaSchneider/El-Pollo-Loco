@@ -139,4 +139,25 @@ const level1 = new Level(
     new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 719 * 12),
     new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 719 * 12),
     new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 719 * 12),
+],
+
+[
+    new Coin(300, 300),
+    new Coin(400, 300),
+    new Coin(500, 300),
+    new Coin(600, 300),
+    new Coin(2080, 100),
+    new Coin(2080, 150),
+    new Coin(2080, 200),
+    new Coin(2080, 250),
+    new Coin(3025, 200),
+    new Coin(3125, 200),
+    new Coin(3900, 225),
+    new Coin(4025, 225),
+    new Coin(4125, 225),
+    new Coin(5300, 200),
+    new Coin(5500, 300),
+    new Coin(6200, 300),
+    new Coin(6300, 300),
+    new Coin(6400, 300)
 ]);
