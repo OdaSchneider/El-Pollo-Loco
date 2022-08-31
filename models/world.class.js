@@ -54,6 +54,7 @@ class World {
             if(this.character.isColliding(coin)){
                 let i = this.level.coins.indexOf(coin);
                 this.level.coins.splice(i, 1);
+                this.coinStatus.collectedCoins++;
             }
         });
     }
@@ -95,7 +96,8 @@ class World {
     drawFixedObjects(){
         this.addToMap(this.healthStatus);
         this.addToMap(this.coinStatus);
-        // this.addToMap(this.bottleStatus);
+        this.addToMap(this.bottleStatus);
+        this.drawCollectedItems();
     }
 
 
@@ -104,6 +106,14 @@ class World {
         requestAnimationFrame(function (){
             self.draw();
         });
+    }
+
+
+    drawCollectedItems(){
+        this.ctx.font = '30px Comic Sans MS';
+        this.ctx.fillStyle = 'black';
+        this.ctx.fillText(this.coinStatus.collectedCoins,  80, 102);
+        this.ctx.fillText(this.bottleStatus.collectedBottles,  170, 102);
     }
 
 
@@ -120,7 +130,6 @@ class World {
         }
 
         object.draw(this.ctx);
-
 
         if(object.changeDirection){
             this.flipImageBack(object);
