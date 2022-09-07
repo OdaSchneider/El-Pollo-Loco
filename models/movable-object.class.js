@@ -6,7 +6,7 @@ class MovableObject extends DrawableObjects {
     changeDirection = false;
     energy = 100;
     lastHit = 0;
-
+    attack = false;
 
     /**
      * set one image after another to animate movement
@@ -48,9 +48,10 @@ class MovableObject extends DrawableObjects {
 
 
     aboveGround() {
-        if (this instanceof ThrowableObjects) { //trowable objects dont stop to fall
+        if (this instanceof ThrowableObjects || this.isDead()) { //trowable objects dont stop to fall
             return true;
-        } else {
+        }
+        else {
             return this.y < 175;
         }
     }
@@ -62,19 +63,27 @@ class MovableObject extends DrawableObjects {
 
 
     isColliding(object) {
-        return this.x + this.width > object.x &&
-            this.y + this.height > object.y &&
-            this.x < object.x &&
-            this.y < object.y + object.height;
+        return this.x + this.width - this.offset.right > object.x + object.offset.left &&
+            this.y + this.height - this.offset.bottom > object.y + object.offset.top &&
+            this.x + this.offset.left < object.x + object.width - object.offset.right &&
+            this.y + this.offset.top < object.y + object.height - object.offset.bottom;
     }
 
 
-    hit() {
-        this.energy -= 5;
+    hit(damage) {
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    heal(life){
+        this.energy += life;
+        if (this.energy > 100) {
+            this.energy = 100;
         }
     }
 
@@ -87,6 +96,13 @@ class MovableObject extends DrawableObjects {
 
     isDead() {
         return this.energy == 0;
+    }
+
+
+    reachedEndboss(object, distance){
+        return this.x + this.width + distance -this.offset.right > object.x + object.offset.left &&
+        this.x + this.offset.left - distance < object.x + object.width - object.offset.right &&
+        this.y + this.offset.top < object.y + object.height - object.offset.bottom;
     }
 
 }

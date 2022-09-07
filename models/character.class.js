@@ -2,7 +2,19 @@ class Character extends MovableObject {
     world;
     speed = 15;
 
-    walkingSound = new Audio('audio/runningInSand.mp3');
+    animationInterval;
+
+    soundJump = new Audio('../audio/jump.mp3');
+    soundHurt = new Audio('../audio/hurt.mp3');
+    soundDead = new Audio('../audio/charakterDead.mp3');
+
+    offset = {
+        top: 100,
+        bottom: 15,
+        left: 20,
+        right: 20
+    }
+
 
     imagesCharakterWalking = [
         '../img/2_character_pepe/2_walk/W-21.png',
@@ -83,7 +95,6 @@ class Character extends MovableObject {
     */
     walking() {
         setInterval(() => {
-            this.walkingSound.pause();
             this.walkingDirectionRight();
             this.walkingDirectionLeft();
             this.world.cameraX = -this.x + 100;
@@ -95,10 +106,9 @@ class Character extends MovableObject {
      * determines the moving direction by keypress and moves the character
      */
     walkingDirectionRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.levelEnd) {
             this.moveRight();
             this.changeDirection = false;
-            this.walkingSound.play();
         }
     }
 
@@ -107,7 +117,6 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.changeDirection = true;
-            this.walkingSound.play();
         }
     }
 
@@ -122,21 +131,49 @@ class Character extends MovableObject {
 
 
     setAnimation() {
-        setInterval(() => {
-            if (this.isDead()) {
-               this.playAnimation(this.imagesDead);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
-            } else if (this.aboveGround()) {
-                this.playAnimation(this.imagesCharakterJumping);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.imagesCharakterWalking);
-            } else {
-                this.playAnimation(this.imagesIdle);
-            }
-        }, 100);
+        this.animationInterval = setInterval(() => {
+            this.animation();
+        }, 100)
     }
 
 
+
+    animation() {
+        if (this.isDead()) {
+            this.charakterDead();
+        } else if (this.isHurt()) {
+            this.charakterHurt()
+        } else if (this.aboveGround()) {
+            this.charakterJump();
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.imagesCharakterWalking);
+        } else {
+            this.playAnimation(this.imagesIdle);
+        }
+    }
+
+
+    charakterDead() {
+        this.playAnimation(this.imagesDead);
+        this.world.playSound(this.soundDead, 1);
+        setTimeout(()=>{
+            clearInterval(this.animationInterval);
+        }, 1000);
+    }
+
+
+    charakterHurt() {
+        this.playAnimation(this.imagesHurt);
+        this.world.playSound(this.soundHurt, 1);
+    }
+
+
+    charakterJump() {
+        this.playAnimation(this.imagesCharakterJumping);
+        if (this.speedY > 0) {
+            this.world.playSound(this.soundJump, 1);
+        }
+
+    }
 
 }

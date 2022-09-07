@@ -1,9 +1,24 @@
-class Endboss extends MovableObject{
+class Endboss extends MovableObject {
     width = 300;
     height = 350;
+    speed = 5;
+    x = 8400;
     y = 95;
+    startWalking = false;
+    animationInterval;
 
-    imagesEndboss = [
+    soundHurt = new Audio('../audio/endbossHurt.mp3');
+    soundDead = new Audio('../audio/endbossDead.mp3');
+    soundAttack = new Audio('../audio/endbossAttack.mp3');
+
+    offset = {
+        top: 100,
+        bottom: 15,
+        left: 50,
+        right: 50
+    }
+
+    imagesEndbossAlert = [
         '../img/4_enemie_boss_chicken/2_alert/G5.png',
         '../img/4_enemie_boss_chicken/2_alert/G6.png',
         '../img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -11,23 +26,112 @@ class Endboss extends MovableObject{
         '../img/4_enemie_boss_chicken/2_alert/G9.png',
         '../img/4_enemie_boss_chicken/2_alert/G10.png',
         '../img/4_enemie_boss_chicken/2_alert/G11.png',
-        '../img/4_enemie_boss_chicken/2_alert/G12.png',
+        '../img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    imagesEndbossWalking = [
+        '../img/4_enemie_boss_chicken/1_walk/G1.png',
+        '../img/4_enemie_boss_chicken/1_walk/G2.png',
+        '../img/4_enemie_boss_chicken/1_walk/G3.png',
+        '../img/4_enemie_boss_chicken/1_walk/G4.png'
+    ]
 
-    constructor(){
-        super().loadImage(this.imagesEndboss[0]);
-        this.loadImages(this.imagesEndboss);
-        this.x = 8600;
+    imagesEndbossAttack = [
+        '../img/4_enemie_boss_chicken/3_attack/G13.png',
+        '../img/4_enemie_boss_chicken/3_attack/G14.png',
+        '../img/4_enemie_boss_chicken/3_attack/G15.png',
+        '../img/4_enemie_boss_chicken/3_attack/G16.png',
+        '../img/4_enemie_boss_chicken/3_attack/G17.png',
+        '../img/4_enemie_boss_chicken/3_attack/G18.png',
+        '../img/4_enemie_boss_chicken/3_attack/G19.png',
+        '../img/4_enemie_boss_chicken/3_attack/G20.png'
+    ]
 
-        this.animate();
+    imagesEndbossHurt = [
+        '../img/4_enemie_boss_chicken/4_hurt/G21.png',
+        '../img/4_enemie_boss_chicken/4_hurt/G22.png',
+        '../img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ]
+
+    imagesEndbossDead = [
+        '../img/4_enemie_boss_chicken/5_dead/G24.png',
+        '../img/4_enemie_boss_chicken/5_dead/G25.png',
+        '../img/4_enemie_boss_chicken/5_dead/G26.png'
+    ]
+
+
+    constructor() {
+        super().loadImage(this.imagesEndbossAlert[0]);
+        this.loadImages(this.imagesEndbossAlert);
+        this.loadImages(this.imagesEndbossWalking);
+        this.loadImages(this.imagesEndbossAttack);
+        this.loadImages(this.imagesEndbossHurt);
+        this.loadImages(this.imagesEndbossDead);
+        this.setAnimation();
+        // this.animateMovement();
     }
 
 
-    animate(){
-
+    animateMovement() {
         setInterval(() => {
-            this.playAnimation(this.imagesEndboss);
-        }, 400);
+            if (this.startWalking && !this.isDead() && !this.attack && !this.isHurt()) {
+                this.moveLeft();
+            }
+        }, 100);
     }
+
+    setAnimation() {
+        this.animationInterval = setInterval(() => {
+            this.animation();
+        }, 100);
+    }
+
+    animation() {
+        if (this.isDead()) {
+            this.endbossDead();
+        } else if (this.isHurt()) {
+            this.endbossHurt();
+        } else if (this.attack) {
+            this.endbossAttack();
+        } else if (this.startWalking) {
+            this.endbossWalk();
+        } else {
+            this.endbossAlert();
+        }
+    }
+
+
+    endbossDead() {
+        this.world.playSound(this.soundDead, 1);
+        this.playAnimation(this.imagesEndbossDead);
+        setTimeout(() => {
+            clearInterval(this.animationInterval);
+            this.speedY = 5;
+            this.applyGravity();
+        }, 1500)
+    }
+
+
+    endbossHurt() {
+        this.playAnimation(this.imagesEndbossHurt);
+        this.world.playSound(this.soundHurt, 0.2);
+        this.speed++;
+    }
+
+
+    endbossAlert() {
+        this.playAnimation(this.imagesEndbossAlert);
+    }
+
+
+    endbossAttack() {
+        this.playAnimation(this.imagesEndbossAttack);
+        this.world.playSound(this.soundAttack, 0.2);
+    }
+
+
+    endbossWalk() {
+        this.playAnimation(this.imagesEndbossWalking);
+    }
+
 }

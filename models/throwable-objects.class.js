@@ -1,5 +1,6 @@
 class ThrowableObjects extends MovableObject{
 
+
     imagesBottleRotation = [
         '../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -29,5 +30,14 @@ class ThrowableObjects extends MovableObject{
         setInterval(() =>{
             this.playAnimation(this.imagesBottleRotation);
         }, 50);
+    }
+
+
+    checkThrowDirection(){
+        if(!this.changeDirection){
+            this.x += 12;
+        } else{
+            this.x -= 12;
+        }
     }
 }

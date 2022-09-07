@@ -3,6 +3,14 @@ class BabyChicken extends MovableObject {
     height = 50;
     y = 370;
 
+    offset = {
+        top: 10,
+        bottom: 10,
+        left: 20,
+        right: 20
+    }
+
+    
     imagesChickenWalking = [
         '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
