@@ -251,7 +251,7 @@ class World {
         let deadChicken = new DeadChicken(enemy.x, enemy.y);
         this.deadEnemies.push(deadChicken);
         this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-        this.playSound(this.soundDeadChicken, 0.5);
+        this.playSound(this.soundDeadChicken, 0.2);
         setTimeout(() => {
             this.deadEnemies.splice(deadChicken);
         }, 1000);

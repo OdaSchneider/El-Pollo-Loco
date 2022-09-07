@@ -164,14 +164,14 @@ class Character extends MovableObject {
 
     charakterHurt() {
         this.playAnimation(this.imagesHurt);
-        this.world.playSound(this.soundHurt, 1);
+        this.world.playSound(this.soundHurt, 0.5);
     }
 
 
     charakterJump() {
         this.playAnimation(this.imagesCharakterJumping);
         if (this.speedY > 0) {
-            this.world.playSound(this.soundJump, 1);
+            this.world.playSound(this.soundJump, 0.2);
         }
 
     }
