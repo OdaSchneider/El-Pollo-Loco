@@ -106,7 +106,7 @@ class Character extends MovableObject {
      * determines the moving direction by keypress and moves the character
      */
     walkingDirectionRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.levelEnd) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.levelEnd && !this.world.endboss.endGame) {
             this.moveRight();
             this.changeDirection = false;
         }
@@ -114,7 +114,7 @@ class Character extends MovableObject {
 
 
     walkingDirectionLeft() {
-        if (this.world.keyboard.LEFT && this.x > 0) {
+        if (this.world.keyboard.LEFT && this.x > 0 && !this.world.endboss.endGame) {
             this.moveLeft();
             this.changeDirection = true;
         }
@@ -123,7 +123,7 @@ class Character extends MovableObject {
 
     jumping() {
         setInterval(() => {
-            if (this.world.keyboard.SPACE && !this.aboveGround()) {
+            if (this.world.keyboard.SPACE && !this.aboveGround() && !this.world.endboss.endGame) {
                 this.jump(20);
             }
         }, 1000 / 60);
@@ -141,11 +141,11 @@ class Character extends MovableObject {
     animation() {
         if (this.isDead()) {
             this.charakterDead();
-        } else if (this.isHurt()) {
+        } else if (this.isHurt() && !this.world.endboss.endGame) {
             this.charakterHurt()
-        } else if (this.aboveGround()) {
+        } else if (this.aboveGround() && !this.world.endboss.endGame) {
             this.charakterJump();
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        } else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.world.endboss.endGame) {
             this.playAnimation(this.imagesCharakterWalking);
         } else {
             this.playAnimation(this.imagesIdle);
@@ -158,6 +158,7 @@ class Character extends MovableObject {
         this.world.playSound(this.soundDead, 1);
         setTimeout(()=>{
             clearInterval(this.animationInterval);
+            this.endGame = true;
         }, 1000);
     }
 

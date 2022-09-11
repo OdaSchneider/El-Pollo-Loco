@@ -7,6 +7,7 @@ class MovableObject extends DrawableObjects {
     energy = 100;
     lastHit = 0;
     attack = false;
+    endGame = false;
 
     /**
      * set one image after another to animate movement

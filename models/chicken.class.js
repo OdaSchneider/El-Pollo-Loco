@@ -4,7 +4,7 @@ class Chicken extends MovableObject {
     y = 340;
 
     offset = {
-        top: 20 ,
+        top: 20,
         bottom: 30,
         left: 20,
         right: 20
@@ -33,7 +33,6 @@ class Chicken extends MovableObject {
     */
     animate() {
         this.walking();
-        // this.deadEnemy();
     }
 
 
@@ -51,4 +50,3 @@ class Chicken extends MovableObject {
     }
 
 }
-   

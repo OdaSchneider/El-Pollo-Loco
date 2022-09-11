@@ -10,7 +10,7 @@ class BabyChicken extends MovableObject {
         right: 20
     }
 
-    
+
     imagesChickenWalking = [
         '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -32,7 +32,7 @@ class BabyChicken extends MovableObject {
     /**
     * calls functions to animate the Chicken
     */
-    animate(){
+    animate() {
         this.walking();
     }
 
@@ -40,8 +40,8 @@ class BabyChicken extends MovableObject {
     /**
     * changes the x coordinates by the certain value speed and the images for walking animation
     */
-    walking(){
-         setInterval(() => {
+    walking() {
+        setInterval(() => {
             this.moveLeft();
         }, 1000 / 80);
 

@@ -18,6 +18,8 @@ class World {
     level = level1;
     levelEnd;
 
+    soundOn = true;
+    musicOn = false;
     soundCollectCoin = new Audio('../audio/coinCollect.mp3');
     soundCollectBottle = new Audio('../audio/bottelCollect.mp3');
     soundCollectHeart = new Audio('../audio/heartCollect.mp3');
@@ -25,9 +27,11 @@ class World {
     soundDeadChicken = new Audio('../audio/chickenDeath.mp3');
     soundDeadBabyChicken = new Audio('../audio/babyChickenDeath.mp3');
     soundEndboss = new Audio('../audio/endboss.mp3');
+    soundWon = new Audio('../audio/win.mp3');
+    soundLost = new Audio('../audio/youLost.mp3');
 
-    gameOver = new Endscreen('../img/9_intro_outro_screens/game_over/game over!.png');
-    lost = new Endscreen('../img/9_intro_outro_screens/game_over/oh no you lost!.png');
+    gameOver = new Endscreen('../img/9_intro_outro_screens/game_over/game over!.png', this.character.x - 120);
+    lost = new Endscreen('../img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
 
 
     constructor(canvas, keyboard) {
@@ -35,9 +39,9 @@ class World {
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
         this.draw();
-        // this.playMusic();
         this.setWorld();
         this.run();
+        this.playMusic();
     }
 
 
@@ -60,6 +64,7 @@ class World {
             this.checkJumpOnEnemy();
             this.checkJumpOnSmallEnemy();
             this.fightEndboss();
+            this.endOfGame();
         }, 1000 / 60);
     }
 
@@ -69,15 +74,13 @@ class World {
     }
 
 
-    playMusic() {
-        this.music.play();
-        this.music.volume = 0.2;
-    }
-
-
     playSound(sound, volume){
-        sound.play();
-        sound.volume = volume;
+        if(this.soundOn){
+            sound.play();
+            sound.volume = volume;
+        }else{
+            this.pauseSound(sound);
+        }
     }
 
 
@@ -87,9 +90,19 @@ class World {
     }
 
 
+    playMusic() {
+        if(this.musicOn){
+            this.music.play();
+            this.music.volume = 0.2;
+        }else{
+            this.music.pause();
+        }
+    }
+
+
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.endboss.endGame) {
                 this.character.hit(5);
                 this.healthStatus.setPercentage(this.character.energy);
             }
@@ -99,7 +112,7 @@ class World {
 
     checkCollisionSmallEnemy() {
         this.level.smallEnemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.endboss.endGame) {
                 this.character.hit(2);
                 this.healthStatus.setPercentage(this.character.energy);
             }
@@ -153,8 +166,6 @@ class World {
     checkStartWalkingEndboss(){
         if (this.character.reachedEndboss(this.endboss, 480)){
             this.endboss.startWalking = true;
-        }else{
-            this.endboss.startWalking = false;
         }
     }
 
@@ -282,7 +293,7 @@ class World {
 
     checkThrowObject() {
         if (this.keyboard.D) {
-            if (!this.character.changeDirection && this.bottleStatus.collectedBottles > 0) {
+            if (!this.character.changeDirection && this.bottleStatus.collectedBottles > 0 && !this.endboss.endGame) {
                 let bottle = new ThrowableObjects(this.character.x + 100, this.character.y + 100);
                 this.throwableObject.push(bottle);
                 this.bottleStatus.collectedBottles--;
@@ -292,11 +303,36 @@ class World {
     }
 
 
+    endOfGame(){
+        if(this.character.endGame){
+            let sound = this.soundLost
+            this.playSoundEndOfGame(sound);
+        } else if(this.endboss.endGame){
+            let sound = this.soundWon;
+            this.playSoundEndOfGame(sound);
+        }
+    }
+    
+
+    playSoundEndOfGame(sound){
+        this.playSound(sound, 1);       
+        setTimeout(()=>{
+            this.soundOn = false;
+            this.restartGame(); 
+        }, 4000);
+    }
+
+
+    restartGame(){
+        location.reload();
+    }
+
+
     draw() {
         this.clearCanvas();
         this.drawLevel();
         this.drawFixedObjects();
-        this.drawHealthStatusEndboss();
+        this.drawEndscreen();
         this.repeatDrawFunction();
     }
 
@@ -308,19 +344,34 @@ class World {
 
     drawLevel() {
         this.ctx.translate(this.cameraX, 0);
+        this.drawBackground();
+        this.drawItems();
+        this.drawGameCharacters();
+        this.ctx.translate(-this.cameraX, 0);
+    }
+
+
+    drawBackground(){
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.smallEnemies);
-        this.addObjectsToMap(this.level.enemies);
+    }
+
+
+    drawItems(){
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.hearts);
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.thrownBottle);
+    }
+
+
+    drawGameCharacters(){
+        this.addObjectsToMap(this.level.smallEnemies);
+        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.deadEnemies);
         this.addToMap(this.character);
         this.addToMap(this.endboss);
-        this.ctx.translate(-this.cameraX, 0);
     }
 
 
@@ -328,12 +379,23 @@ class World {
         this.addToMap(this.healthStatus);
         this.addToMap(this.coinStatus);
         this.addToMap(this.bottleStatus);
+        this.drawHealthStatusEndboss();
         this.drawCollectedItems();
     }
+
 
     drawHealthStatusEndboss() {
         if (this.character.reachedEndboss(this.endboss, 520)) {
             this.addToMap(this.healthStatusEndboss);
+        }
+    }
+
+
+    drawEndscreen(){
+        if(this.character.endGame){
+            this.addToMap(this.lost);
+        } else if(this.endboss.endGame){
+            this.addToMap(this.gameOver);
         }
     }
 

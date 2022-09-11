@@ -1,9 +1,81 @@
 body{
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: black;
+    background-color: #ffa600;
+    border-radius: 25px;
+    box-shadow: 0px 0px 6px 0px #6c6c6c;
+    border: none;
+    cursor: pointer;
+    z-index: 900;
+    font-family: 'Luckiest Guy', cursive;
+    font-weight: bold;
+    transition: all .2s ease-in-out;
+}
+
+button:hover{
+    background-color: #FFDC04;
+    transform: scale(1.1);
+}
+
+.d-none{
+    display: none;
+}
+
+.container{
+    width: 720px;
+    height: 480px;
+    box-shadow: 0px 0px 8px 0px black;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
 canvas{
     background-color: black;
+    border-radius: 2px;
 }
+
+.startscreen{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    border-radius: 10px;
+}
+
+#startButton{
+    left: 43%;
+    height: 50px;
+    width: 120px;
+    margin-top: 32px;
+    font-size: 30px;
+}
+
+#settingsButton{
+    left: 10%;
+    height: 45px;
+    width: 120px;
+    top: 89%;
+    font-size: 20px;
+}
+
+#controlButton{
+    right: 10%;
+    height: 45px;
+    width: 120px;
+    top: 89%;
+    font-size: 20px;
+}
+

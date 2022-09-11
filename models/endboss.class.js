@@ -74,7 +74,7 @@ class Endboss extends MovableObject {
 
     animateMovement() {
         setInterval(() => {
-            if (this.startWalking && !this.isDead() && !this.attack && !this.isHurt()) {
+            if (this.startWalking && !this.isDead() && !this.attack && !this.isHurt() && !this.world.character.endGame) {
                 this.moveLeft();
             }
         }, 100);
@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
             this.endbossHurt();
         } else if (this.attack) {
             this.endbossAttack();
-        } else if (this.startWalking) {
+        } else if (this.startWalking && !this.world.character.endGame) {
             this.endbossWalk();
         } else {
             this.endbossAlert();
@@ -108,6 +108,7 @@ class Endboss extends MovableObject {
             clearInterval(this.animationInterval);
             this.speedY = 5;
             this.applyGravity();
+            this.endGame = true;
         }, 1500)
     }
 

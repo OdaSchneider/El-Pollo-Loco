@@ -5,8 +5,22 @@ let keyboard = new Keyboard();
 
 function init(){
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+}
 
+
+function startGame(){
+    world = new World(canvas, keyboard);
+    hideElement('startContainer');
+}
+
+
+function showElement(element) {
+    return document.getElementById(`${element}`).classList.remove('d-none');
+}
+
+
+function hideElement(element) {
+    return document.getElementById(`${element}`).classList.add('d-none');
 }
 
 
