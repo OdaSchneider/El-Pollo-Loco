@@ -14,6 +14,16 @@ function startGame(){
 }
 
 
+function settings(){
+    alert('coming soon');
+}
+
+
+function control(){
+    alert('coming soon');
+}
+
+
 function showElement(element) {
     return document.getElementById(`${element}`).classList.remove('d-none');
 }

@@ -21,7 +21,6 @@ button{
     cursor: pointer;
     z-index: 900;
     font-family: 'Luckiest Guy', cursive;
-    font-weight: bold;
     transition: all .2s ease-in-out;
 }
 

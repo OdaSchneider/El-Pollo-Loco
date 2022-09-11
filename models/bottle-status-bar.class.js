@@ -4,7 +4,7 @@ class BottleStatusBar extends DrawableObjects{
     collectedBottles = 0;
 
     imagesBottle =[
-        '../img/7_statusbars/3_icons/icon_salsa_bottle.png'
+        'img/7_statusbars/3_icons/icon_salsa_bottle.png'
     ]
 
 

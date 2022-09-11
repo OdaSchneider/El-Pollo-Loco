@@ -20,18 +20,18 @@ class World {
 
     soundOn = true;
     musicOn = false;
-    soundCollectCoin = new Audio('../audio/coinCollect.mp3');
-    soundCollectBottle = new Audio('../audio/bottelCollect.mp3');
-    soundCollectHeart = new Audio('../audio/heartCollect.mp3');
-    soundBrokenBottle = new Audio('../audio/brokenBottle.mp3');
-    soundDeadChicken = new Audio('../audio/chickenDeath.mp3');
-    soundDeadBabyChicken = new Audio('../audio/babyChickenDeath.mp3');
-    soundEndboss = new Audio('../audio/endboss.mp3');
-    soundWon = new Audio('../audio/win.mp3');
-    soundLost = new Audio('../audio/youLost.mp3');
+    soundCollectCoin = new Audio('audio/coinCollect.mp3');
+    soundCollectBottle = new Audio('audio/bottelCollect.mp3');
+    soundCollectHeart = new Audio('audio/heartCollect.mp3');
+    soundBrokenBottle = new Audio('audio/brokenBottle.mp3');
+    soundDeadChicken = new Audio('audio/chickenDeath.mp3');
+    soundDeadBabyChicken = new Audio('audio/babyChickenDeath.mp3');
+    soundEndboss = new Audio('audio/endboss.mp3');
+    soundWon = new Audio('audio/win.mp3');
+    soundLost = new Audio('audio/youLost.mp3');
 
-    gameOver = new Endscreen('../img/9_intro_outro_screens/game_over/game over!.png', this.character.x - 120);
-    lost = new Endscreen('../img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
+    gameOver = new Endscreen('img/9_intro_outro_screens/game_over/game over!.png', this.character.x - 120);
+    lost = new Endscreen('img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
 
 
     constructor(canvas, keyboard) {
@@ -153,7 +153,7 @@ class World {
         if(this.endboss.isDead()){
             this.pauseSound(this.soundEndboss);
         } else if (this.character.reachedEndboss(this.endboss, 520)) {
-            this.playSound(this.soundEndboss, 0.2);
+            this.playSound(this.soundEndboss, 0.8);
             this.music.pause();
             this.checkStartWalkingEndboss();
         } else {
