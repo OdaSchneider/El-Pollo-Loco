@@ -1,5 +1,7 @@
 let canvas;
 let world;
+let soundOn;
+let musicOn;
 let keyboard = new Keyboard();
 
 
@@ -9,28 +11,76 @@ function init(){
 
 
 function startGame(){
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, soundOn, musicOn);
     hideElement('startContainer');
 }
 
 
 function settings(){
-    alert('coming soon');
+    hideElementAnimated('controlMenu');
+    showElementAnimated('settingsMenu');
 }
 
 
 function control(){
-    alert('coming soon');
+    hideElementAnimated('settingsMenu');
+    showElementAnimated('controlMenu');
+}
+
+
+function closeMenu(){
+    hideElementAnimated('settingsMenu');
+    hideElementAnimated('controlMenu');
+}
+
+function doNotClose(event){
+    event.stopPropagation();
 }
 
 
 function showElement(element) {
-    return document.getElementById(`${element}`).classList.remove('d-none');
+    document.getElementById(`${element}`).classList.remove('d-none');
+}
+
+
+function showElementAnimated(element) {
+    document.getElementById(`${element}`).classList.remove('vis-hidden');
+    setTimeout(()=>{
+        document.getElementById(`${element}`).classList.remove('d-none');
+    }, 400)
 }
 
 
 function hideElement(element) {
-    return document.getElementById(`${element}`).classList.add('d-none');
+    document.getElementById(`${element}`).classList.add('d-none');
+}
+
+
+function hideElementAnimated(element) {
+    document.getElementById(`${element}`).classList.add('vis-hidden');
+    setTimeout(()=>{
+        document.getElementById(`${element}`).classList.add('d-none');
+    }, 400)
+}
+
+
+function sound(){
+    let sound = document.getElementById('soundToggle');
+    if(sound){
+        soundOn = true;
+    }else{
+        soundOn = false;
+    }
+}
+
+
+function music(){
+    let music = document.getElementById('musicToggle');
+    if(music){
+        musicOn = true;
+    }else{
+        musicOn = false;
+    }
 }
 
 

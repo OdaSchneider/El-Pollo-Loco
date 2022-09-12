@@ -18,8 +18,8 @@ class World {
     level = level1;
     levelEnd;
 
-    soundOn = true;
-    musicOn = false;
+    soundOn;
+    musicOn;
     soundCollectCoin = new Audio('audio/coinCollect.mp3');
     soundCollectBottle = new Audio('audio/bottelCollect.mp3');
     soundCollectHeart = new Audio('audio/heartCollect.mp3');
@@ -34,9 +34,11 @@ class World {
     lost = new Endscreen('img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
 
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, soundOn, musicOn) {
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.soundOn = soundOn;
+        this.musicOn = musicOn;
         this.ctx = canvas.getContext('2d');
         this.draw();
         this.setWorld();
@@ -72,6 +74,7 @@ class World {
     setLevelEnd(){
         this.levelEnd = this.endboss.x;
     }
+
 
 
     playSound(sound, volume){
@@ -158,7 +161,7 @@ class World {
             this.checkStartWalkingEndboss();
         } else {
             this.pauseSound(this.soundEndboss);
-            // this.music.play();
+            this.playMusic();
         }
     }
 

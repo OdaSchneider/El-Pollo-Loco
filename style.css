@@ -10,6 +10,8 @@ body{
 
 p{
     font-size: 20px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
 button{
@@ -23,7 +25,7 @@ button{
     box-shadow: 0px 0px 6px 0px #6c6c6c;
     border: none;
     cursor: pointer;
-    z-index: 900;
+    z-index: 100;
     font-family: 'Luckiest Guy', cursive;
     transition: all .2s ease-in-out;
 }
@@ -35,6 +37,10 @@ button:hover{
 
 .d-none{
     display: none;
+}
+
+.vis-hidden{
+    opacity: 0;
 }
 
 .d-flex{
@@ -94,16 +100,58 @@ canvas{
     font-size: 20px;
 }
 
-#settings{
-    height: 150px;
-    width: 250px;
+#menuButton{
+    height: 30px;
+    width: 80px;
+    font-size: 14px;
+}
+
+.background{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s ease-in-out;
+}
+
+.menu{
+    display: block;
     background-image: radial-gradient(yellow, rgb(255, 230, 0), orange);
     position: absolute;
-    left: 30%;
-    top: 33%;
     padding: 29px;
     border-radius: 15px;
     box-shadow: 0px 0px 8px 0px black;
+    transition: all .4s ease-in-out;
+}
+
+#settings{
+    height: auto;
+    width: 250px;
+    left: 30%;
+    top: 33%;
+}
+
+#control{
+    height: auto;
+    width: 250px;
+    left: 29%;
+    top: 22%;
+}
+
+.controlImage{
+    width: 24px;
+    height: 24px;
+}
+
+.closeMenu{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
 }
 
 .switch {
@@ -111,6 +159,7 @@ canvas{
     display: inline-block;
     width: 40px;
     height: 20px;
+    z-index: 100;
   }
   
   /* Hide default HTML checkbox */
