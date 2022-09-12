@@ -3,7 +3,7 @@ class World {
     ctx;
     keyboard;
     cameraX = 0;
-    music = new Audio('../audio/music.mp3');
+    music = new Audio('audio/music.mp3');
 
     character = new Character();
     endboss = new Endboss();

@@ -4,9 +4,9 @@ class Character extends MovableObject {
 
     animationInterval;
 
-    soundJump = new Audio('../audio/jump.mp3');
-    soundHurt = new Audio('../audio/hurt.mp3');
-    soundDead = new Audio('../audio/charakterDead.mp3');
+    soundJump = new Audio('audio/jump.mp3');
+    soundHurt = new Audio('audio/hurt.mp3');
+    soundDead = new Audio('audio/charakterDead.mp3');
 
     offset = {
         top: 100,

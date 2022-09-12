@@ -7,9 +7,9 @@ class Endboss extends MovableObject {
     startWalking = false;
     animationInterval;
 
-    soundHurt = new Audio('../audio/endbossHurt.mp3');
-    soundDead = new Audio('../audio/endbossDead.mp3');
-    soundAttack = new Audio('../audio/endbossAttack.mp3');
+    soundHurt = new Audio('audio/endbossHurt.mp3');
+    soundDead = new Audio('audio/endbossDead.mp3');
+    soundAttack = new Audio('audio/endbossAttack.mp3');
 
     offset = {
         top: 100,
