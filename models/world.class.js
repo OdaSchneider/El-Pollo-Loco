@@ -327,7 +327,7 @@ class World {
 
 
     restartGame(){
-        location.reload();
+        window.location = window.location;
     }
 
 
