@@ -84,6 +84,21 @@ function music(){
 }
 
 
+function fullscreen(){
+    let container = document.getElementById('container');
+    container.requestFullscreen();
+    document.getElementById('canvas').classList.add('fullscreen');
+    document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: closeFullscreen()`);
+}
+
+
+function closeFullscreen(){
+    document.exitFullscreen();
+    document.getElementById('canvas').classList.remove('fullscreen');
+    document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: fullscreen()`);
+}
+
+
 window.addEventListener("keydown" , (event) => {
 
     if(event.keyCode == 32){

@@ -38,18 +38,29 @@
 
 
 <body onload="init()">
-    <div class="container">
+    <h1>El Pollo Loco</h1>
+    <div class="container" id="container">
 
         <div id="startContainer">
-            <img id="startscreen" class="startscreen" src="img/9_intro_outro_screens/start/startscreen_1.png">
-            <button id="startButton" onclick="startGame()">Start</button>
-            <button id="settingsButton" onclick="settings()">
-                <img src="./img/icons/settings.ico">
-            </button>
+
+            <div class="topButtonLine">
+                <button id="startButton" onclick="startGame()">Start</button>
+            </div>
+
+            <div class="bottomButtonLine">
+                <button id="settingsButton" onclick="settings()">
+                    <img src="img/icons/settings.ico">
+                </button>
     
-            <button id="controlButton" onclick="control()">
-                <img src="./img/icons/control.ico">
-            </button>
+                <button id="fullscreenButton" onclick="fullscreen()">
+                    <img src="img/icons/fullscreen.ico">
+                </button>
+        
+                <button id="controlButton" onclick="control()">
+                    <img src="img/icons/control.ico">
+                </button>
+            </div>
+
 
             <div onclick="closeMenu()" id="settingsMenu" class="background d-none vis-hidden">
                 <div onclick="doNotClose(event)" id="settings" class="menu">
