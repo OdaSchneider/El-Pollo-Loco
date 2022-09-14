@@ -2,7 +2,7 @@ let canvas;
 let world;
 let soundOn;
 let musicOn;
-let keyboard = new Keyboard();
+let keyboard;
 
 
 function init(){
@@ -11,8 +11,13 @@ function init(){
 
 
 function startGame(){
+    initLevel();
+    keyboard = new Keyboard();
     world = new World(canvas, keyboard, soundOn, musicOn);
     hideElement('startContainer');
+    setTimeout(()=>{
+        document.getElementById('hud').classList.add('d-flex');
+    }, 300);
 }
 
 
@@ -87,58 +92,15 @@ function music(){
 function fullscreen(){
     let container = document.getElementById('container');
     container.requestFullscreen();
-    document.getElementById('canvas').classList.add('fullscreen');
+    document.getElementById('container').classList.add('fullscreen');
     document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: closeFullscreen()`);
 }
 
 
 function closeFullscreen(){
     document.exitFullscreen();
-    document.getElementById('canvas').classList.remove('fullscreen');
+    document.getElementById('container').classList.remove('fullscreen');
     document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: fullscreen()`);
 }
 
 
-window.addEventListener("keydown" , (event) => {
-
-    if(event.keyCode == 32){
-        keyboard.SPACE = true;
-    }
-    if(event.keyCode == 37){
-        keyboard.LEFT = true;
-    }
-    if(event.keyCode == 38){
-        keyboard.UP = true;
-    }
-    if(event.keyCode == 39){
-        keyboard.RIGHT = true;
-    }
-    if(event.keyCode == 40){
-        keyboard.DOWN = true;
-    }
-    if(event.keyCode == 68){
-        keyboard.D = true;
-    }
-});
-
-
-window.addEventListener("keyup" , (event) => {
-    if(event.keyCode == 32){
-        keyboard.SPACE = false;
-    }
-    if(event.keyCode == 37){
-        keyboard.LEFT = false;
-    }
-    if(event.keyCode == 38){
-        keyboard.UP = false;
-    }
-    if(event.keyCode == 39){
-        keyboard.RIGHT = false;
-    }
-    if(event.keyCode == 40){
-        keyboard.DOWN = false;
-    }
-    if(event.keyCode == 68){
-        keyboard.D = false;
-    }
-});

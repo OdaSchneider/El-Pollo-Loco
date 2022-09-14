@@ -105,13 +105,31 @@ button:hover{
 canvas{
     background-image: url(../img/9_intro_outro_screens/start/startscreen_1.png);
     background-size: 100% 100%;
-    border-radius: 2px;
     display: block;
 }
 
 .fullscreen{
+    border-radius: unset;
+}
+
+.hud{
+    position: absolute;
+    bottom: 0px;
     width: 100%;
-    height: 100%;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#hud button{
+    margin: 16px;
+    border-radius: 100px;
+    width: 45px;
+    height: 45px;
+}
+
+.throw{
+    transform: rotate(40deg);
 }
 
 #startButton{
@@ -345,6 +363,16 @@ canvas{
     .closeMenu{
         margin: 0;
     }
+
+    #hud img{
+        width: 24px;
+        height: 24px;
+    }
+
+    #hud button{
+        width: 35px;
+        height: 35px;
+    }
   }
 
   @media only screen and (max-width: 480px){
@@ -491,6 +519,16 @@ canvas{
 
     .closeMenu{
         margin: 0;
+    }
+
+    #hud img{
+        width: 24px;
+        height: 24px;
+    }
+
+    #hud button{
+        width: 35px;
+        height: 35px;
     }
   }
 
