@@ -310,13 +310,20 @@ class World {
         if(this.character.endGame){
             let sound = this.soundLost
             this.playSoundEndOfGame(sound);
+            this.pauseMusic();
         } else if(this.endboss.endGame){
             let sound = this.soundWon;
             this.playSoundEndOfGame(sound);
+            this.pauseMusic();
         }
     }
-    
 
+    pauseMusic(){
+        this.music.pause();
+        this.music.volume = 0;
+    }
+
+    
     playSoundEndOfGame(sound){
         this.playSound(sound, 1);       
         setTimeout(()=>{

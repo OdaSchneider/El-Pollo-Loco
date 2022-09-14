@@ -1,5 +1,6 @@
 body{
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,6 +27,23 @@ p{
     font-size: 20px;
     margin-top: 16px;
     margin-bottom: 16px;
+}
+
+span{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    font-size: 12px;
+    z-index: 0;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #9900ff;
 }
 
 h1{
@@ -81,6 +99,7 @@ button:hover{
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    z-index: 1;
 }
 
 canvas{
@@ -256,4 +275,228 @@ canvas{
   
   .slider.round:before {
     border-radius: 50%;
+  }
+
+
+  /*-----Responsive-----*/
+  @media only screen and (max-width: 720px) {
+    canvas{
+        width: 100%;
+    }
+
+    .container{
+        width: 100%;
+        height: auto;
+    }
+
+    #startButton{
+        height: 35px;
+        width: 100px;
+        font-size: 24px;
+    }
+
+    #settingsButton {
+        height: 35px;
+        width: 75px;
+    }
+
+    #fullscreenButton{
+        height: 35px;
+        width: 75px;
+    }
+
+    #controlButton{
+        height: 35px;
+        width: 75px;
+    }
+
+    #settingsButton img{
+        width: 28px;
+        height: 28px;
+    }
+
+   #fullscreenButton img{
+        width: 24px;
+        height: 24px;
+    }
+
+    .bottomButtonLine{
+        bottom: 0;
+    }
+
+    .topButtonLine{
+        top: 0px;
+    }
+  }
+
+  @media only screen and (max-width: 600px){
+    .menu{
+        padding: 8px;
+    }
+
+    .menu p {
+        font-size: 14px;
+    }
+
+    #menuButton{
+        display: none;
+    }
+
+    .closeMenu{
+        margin: 0;
+    }
+  }
+
+  @media only screen and (max-width: 480px){
+    p{
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+  }
+
+  @media only screen and (max-width: 460px){
+    .bottomButtonLine{
+        bottom: -8px;
+    }
+  }
+
+  @media only screen and (max-width: 380px){
+    .menu p{
+        font-size: 12px;
+    }
+
+    .controlImage {
+        width: 20px;
+        height: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 360px){
+    #startButton{
+        height: 30px;
+        width: 80px;
+        font-size: 20px;
+    }
+
+    #settingsButton {
+        height: 30px;
+        width: 45px;
+    }
+
+    #fullscreenButton{
+        height: 30px;
+        width: 45px;
+    }
+
+    #controlButton{
+        height: 30px;
+        width: 45px;
+    }
+
+    #settingsButton img{
+        width: 24px;
+        height: 24px;
+    }
+
+   #fullscreenButton img{
+        width: 20px;
+        height: 20px;
+    }
+
+    #controlButton img{
+        width: 28px;
+        height: 28px;
+    }
+
+    .bottomButtonLine{
+        bottom: -12px;
+    }
+
+    .topButtonLine {
+        top: -8px;
+    }
+  }
+
+  @media only screen and (max-height: 480px) {
+    canvas{
+        height: 100vh;
+    }
+
+    .container{
+        height: 100vh;
+        width: auto;
+    }
+
+    .menu{
+        padding: 8px;
+    }
+
+    .menu p {
+        font-size: 14px;
+    }
+
+    .controlImage {
+        width: 20px;
+        height: 20px;
+    }
+  }
+
+  @media only screen and (max-height: 450px){
+    .topButtonLine{
+        top: 0px;
+    }
+  }
+
+  @media only screen and (max-height: 400px){
+    #startButton{
+        height: 35px;
+        width: 100px;
+        font-size: 24px;
+    }
+
+    #settingsButton {
+        height: 35px;
+        width: 75px;
+    }
+
+    #fullscreenButton{
+        height: 35px;
+        width: 75px;
+    }
+
+    #controlButton{
+        height: 35px;
+        width: 75px;
+    }
+
+    #settingsButton img{
+        width: 28px;
+        height: 28px;
+    }
+
+   #fullscreenButton img{
+        width: 24px;
+        height: 24px;
+    }
+
+    .bottomButtonLine{
+        bottom: -8px;
+    }
+  }
+
+  @media only screen and (max-height: 380px){
+    #menuButton{
+        display: none;
+    }
+
+    .closeMenu{
+        margin: 0;
+    }
+  }
+
+  @media only screen and (max-height: 320px){
+    p{
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
   }
