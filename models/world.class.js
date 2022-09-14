@@ -20,8 +20,6 @@ class World {
     level = level1;
     levelEnd;
 
-    soundOn;
-    musicOn;
     soundCollectCoin = new Audio('audio/coinCollect.mp3');
     soundCollectBottle = new Audio('audio/bottelCollect.mp3');
     soundCollectHeart = new Audio('audio/heartCollect.mp3');
@@ -37,11 +35,9 @@ class World {
     lost = new Endscreen('img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
 
 
-    constructor(canvas, keyboard, soundOn, musicOn) {
+    constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.soundOn = soundOn;
-        this.musicOn = musicOn;
         this.ctx = canvas.getContext('2d');
         this.draw();
         this.setWorld();
@@ -91,7 +87,7 @@ class World {
 
 
     playSound(sound, volume){
-        if(this.soundOn){
+        if(soundOn()){
             sound.play();
             sound.volume = volume;
         }else{
@@ -107,12 +103,18 @@ class World {
 
 
     playMusic() {
-        if(this.musicOn){
+        if(musicOn()){
             this.music.play();
             this.music.volume = 0.2;
         }else{
-            this.music.pause();
+            this.pauseMusic();
         }
+    }
+
+
+    pauseMusic(){
+        this.music.pause();
+        this.music.volume = 0;
     }
 
 
@@ -333,11 +335,6 @@ class World {
         }
     }
 
-    pauseMusic(){
-        this.music.pause();
-        this.music.volume = 0;
-    }
-
 
     resetGame(){      
         this.soundOn = false;
@@ -426,19 +423,19 @@ class World {
     }
 
 
-    repeatDrawFunction() {
-        self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
-    }
-
-
     drawCollectedItems() {
         this.ctx.font = '30px Comic Sans MS';
         this.ctx.fillStyle = 'black';
         this.ctx.fillText(this.coinStatus.collectedCoins, 80, 102);
         this.ctx.fillText(this.bottleStatus.collectedBottles, 170, 102);
+    }
+
+
+    repeatDrawFunction() {
+        self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
     }
 
 

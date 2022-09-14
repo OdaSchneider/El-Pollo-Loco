@@ -1,7 +1,5 @@
 let canvas;
 let world;
-let soundOn;
-let musicOn;
 let keyboard;
 
 
@@ -11,13 +9,20 @@ function init(){
 
 
 function startGame(){
-    hideElement('startContainer');
     initLevel();
     keyboard = new Keyboard();
-    world = new World(canvas, keyboard, soundOn, musicOn);
+    world = new World(canvas, keyboard);
     setTimeout(()=>{
+        addMenuButtons();
         document.getElementById('hud').classList.add('d-flex');
     }, 1000);
+}
+
+
+function addMenuButtons(){
+   hideElement('startContainer');
+   document.getElementById('menuButtonLine').classList.add('gameMenuButtonLine');
+   hideElement('fullscreenButton');
 }
 
 
@@ -69,23 +74,13 @@ function hideElementAnimated(element) {
 }
 
 
-function sound(){
-    let sound = document.getElementById('soundToggle');
-    if(sound){
-        soundOn = true;
-    }else{
-        soundOn = false;
-    }
+function soundOn(){
+    return document.getElementById('soundToggle').checked;
 }
 
 
-function music(){
-    let music = document.getElementById('musicToggle');
-    if(music){
-        musicOn = true;
-    }else{
-        musicOn = false;
-    }
+function musicOn(){
+    return document.getElementById('musicToggle').checked;
 }
 
 
@@ -93,6 +88,7 @@ function fullscreen(){
     let container = document.getElementById('container');
     container.requestFullscreen();
     document.getElementById('container').classList.add('fullscreen');
+    document.getElementById('canvas').classList.add('canvasFullscreen');
     document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: closeFullscreen()`);
 }
 

@@ -41,79 +41,78 @@
     <div class="container" id="container">
 
         <div id="startContainer">
-
-            <div class="topButtonLine">
+            <div class="startButtonLine">
                 <button id="startButton" onclick="startGame()">Start</button>
             </div>
+        </div>
 
-            <div class="bottomButtonLine">
-                <button id="settingsButton" onclick="settings()">
-                    <img src="img/icons/settings.ico">
-                </button>
-    
-                <button id="fullscreenButton" onclick="fullscreen()">
-                    <img src="img/icons/fullscreen.ico">
-                </button>
-        
-                <button id="controlButton" onclick="control()">
-                    <img src="img/icons/control.ico">
-                </button>
-            </div>
+        <div id="menuButtonLine" class="menuButtonLine">
+            <button id="settingsButton" onclick="settings()">
+                <img src="img/icons/settings.ico">
+            </button>
+
+            <button id="fullscreenButton" onclick="fullscreen()">
+                <img src="img/icons/fullscreen.ico">
+            </button>
+
+            <button id="controlButton" onclick="control()">
+                <img src="img/icons/control.ico">
+            </button>
+        </div>
 
 
-            <div onclick="closeMenu()" id="settingsMenu" class="background d-none vis-hidden">
-                <div onclick="doNotClose(event)" id="settings" class="menu">
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Sound</p>
-                        <label class="switch">
-                            <input onclick="sound()" id="soundToggle" type="checkbox"> 
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-    
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Music</p>
-                        <label class="switch">
-                            <input onclick="music()" id="musicToggle" type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-    
-                    <div class="closeMenu">
-                        <button id="menuButton" onclick="closeMenu()">Close</button>
-                    </div>
+        <div onclick="closeMenu()" id="settingsMenu" class="background d-none vis-hidden">
+            <div onclick="doNotClose(event)" id="settings" class="menu">
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Sound</p>
+                    <label class="switch">
+                        <input onclick="soundOn()" id="soundToggle" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-            </div>
 
-            <div onclick="closeMenu()" id="controlMenu" class="background d-none vis-hidden">
-                <div onclick="doNotClose(event)" id="control" class="menu">
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Move right</p>
-                        <img class="controlImage" src="img/icons/arrow-right.ico">
-                    </div>
-    
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Move left</p>
-                        <img class="controlImage" src="img/icons/arrow-left.ico">
-                    </div>
-    
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Jump</p>
-                        <img class="controlImage" src="img/icons/space.ico">
-                    </div>
-    
-                    <div class="d-flex alignCenter spaceBetween">
-                        <p>Throw Bottle</p>
-                        <img class="controlImage" src="img/icons/letter-d.ico">
-                    </div>
-    
-                    <div class="closeMenu">
-                        <button id="menuButton" onclick="closeMenu()">Close</button>
-                    </div>
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Music</p>
+                    <label class="switch">
+                        <input onclick="musicOn()" id="musicToggle" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="closeMenu">
+                    <button id="menuButton" onclick="closeMenu()">Close</button>
                 </div>
             </div>
         </div>
-        
+
+        <div onclick="closeMenu()" id="controlMenu" class="background d-none vis-hidden">
+            <div onclick="doNotClose(event)" id="control" class="menu">
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Move right</p>
+                    <img class="controlImage" src="img/icons/arrow-right.ico">
+                </div>
+
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Move left</p>
+                    <img class="controlImage" src="img/icons/arrow-left.ico">
+                </div>
+
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Jump</p>
+                    <img class="controlImage" src="img/icons/space.ico">
+                </div>
+
+                <div class="d-flex alignCenter spaceBetween">
+                    <p>Throw Bottle</p>
+                    <img class="controlImage" src="img/icons/letter-d.ico">
+                </div>
+
+                <div class="closeMenu">
+                    <button id="menuButton" onclick="closeMenu()">Close</button>
+                </div>
+            </div>
+        </div>
+
         <canvas id="canvas" width="720" height="480"></canvas>
 
         <div id="hud" class="hud d-none">
@@ -136,6 +135,10 @@
         </div>
 
     </div>
-    <span><a href="https://www.freepik.com/free-vector/desert-forest-landscape-daytime-scene-with-many-cactuses_16265135.htm#query=desert%20cactus&position=8&from_view=keyword">Image by brgfx</a> on Freepik</span>
+    <span>
+        <a href="https://www.freepik.com/free-vector/desert-forest-landscape-daytime-scene-with-many-cactuses_16265135.htm#query=desert%20cactus&position=8&from_view=keyword">
+            Image by brgfx</a> on Freepik
+    </span>
 </body>
+
 </html>

@@ -62,41 +62,49 @@ class Keyboard{
         document.getElementById('btnLeft').addEventListener('touchstart', (e) =>{
             e.preventDefault();
             this.LEFT= true;
+            document.getElementById('btnLeft').classList.add('buttonOnTouch');
         });
 
         document.getElementById('btnLeft').addEventListener('touchend', (e) =>{
             e.preventDefault();
             this.LEFT= false;
+            document.getElementById('btnLeft').classList.remove('buttonOnTouch');
         });
 
         document.getElementById('btnRight').addEventListener('touchstart', (e) =>{
             e.preventDefault();
             this.RIGHT= true;
+            document.getElementById('btnRight').classList.add('buttonOnTouch');
         });
 
         document.getElementById('btnRight').addEventListener('touchend', (e) =>{
             e.preventDefault();
             this.RIGHT= false;
+            document.getElementById('btnRight').classList.remove('buttonOnTouch');
         });
 
         document.getElementById('btnJump').addEventListener('touchstart', (e) =>{
             e.preventDefault();
             this.SPACE= true;
+            document.getElementById('btnJump').classList.add('buttonOnTouch');
         });
 
         document.getElementById('btnJump').addEventListener('touchend', (e) =>{
             e.preventDefault();
             this.SPACE= false;
+            document.getElementById('btnJump').classList.remove('buttonOnTouch');
         });
 
         document.getElementById('btnThrow').addEventListener('touchstart', (e) =>{
             e.preventDefault();
             this.D= true;
+            document.getElementById('btnThrow').classList.add('buttonOnTouch');
         });
 
         document.getElementById('btnThrow').addEventListener('touchend', (e) =>{
             e.preventDefault();
             this.D= false;
+            document.getElementById('btnThrow').classList.remove('buttonOnTouch');
         });
     }
 }
