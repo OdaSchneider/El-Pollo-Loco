@@ -174,7 +174,6 @@ class Character extends MovableObject {
         if (this.speedY > 0) {
             this.world.playSound(this.soundJump, 0.2);
         }
-
     }
 
 }

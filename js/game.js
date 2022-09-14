@@ -11,13 +11,13 @@ function init(){
 
 
 function startGame(){
+    hideElement('startContainer');
     initLevel();
     keyboard = new Keyboard();
     world = new World(canvas, keyboard, soundOn, musicOn);
-    hideElement('startContainer');
     setTimeout(()=>{
         document.getElementById('hud').classList.add('d-flex');
-    }, 300);
+    }, 1000);
 }
 
 

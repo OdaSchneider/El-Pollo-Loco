@@ -3,7 +3,9 @@ class World {
     ctx;
     keyboard;
     cameraX = 0;
-    music = new Audio('audio/music.mp3');
+    slowInterval;
+    fastInterval;
+
 
     character = new Character();
     endboss = new Endboss();
@@ -29,6 +31,7 @@ class World {
     soundEndboss = new Audio('audio/endboss.mp3');
     soundWon = new Audio('audio/win.mp3');
     soundLost = new Audio('audio/youLost.mp3');
+    music = new Audio('audio/music.mp3');
 
     gameOver = new Endscreen('img/9_intro_outro_screens/game_over/game over!.png', this.character.x - 120);
     lost = new Endscreen('img/9_intro_outro_screens/game_over/oh no you lost!.png', this.character.x - 120);
@@ -54,20 +57,30 @@ class World {
 
 
     run() {
-        setInterval(() => {
-            this.checkThrowObject();
-            this.checkCollisionEnemy();
-            this.checkCollisionSmallEnemy();
-            this.checkCollisionEndboss();
-            this.setLevelEnd();
-        }, 200)
-        setInterval(() => {
-            this.checkCollisionItems();
-            this.checkJumpOnEnemy();
-            this.checkJumpOnSmallEnemy();
-            this.fightEndboss();
-            this.endOfGame();
+        this.slowInterval = setInterval(() => {
+            this.slowIntervalAction();
+        }, 300);
+        this.fastInterval = setInterval(() => {
+            this.fastIntervalAction();
         }, 1000 / 60);
+    }
+
+
+    slowIntervalAction(){
+        this.checkThrowObject();
+        this.checkCollisionEnemy();
+        this.checkCollisionSmallEnemy();
+        this.checkCollisionEndboss();
+        this.setLevelEnd();
+    }
+
+
+    fastIntervalAction(){
+        this.checkCollisionItems();
+        this.checkJumpOnEnemy();
+        this.checkJumpOnSmallEnemy();
+        this.fightEndboss();
+        this.endOfGame();
     }
 
 
@@ -309,12 +322,14 @@ class World {
     endOfGame(){
         if(this.character.endGame){
             let sound = this.soundLost
-            this.playSoundEndOfGame(sound);
+            this.playSound(sound, 1); 
             this.pauseMusic();
+            this.restartGame();
         } else if(this.endboss.endGame){
             let sound = this.soundWon;
-            this.playSoundEndOfGame(sound);
+            this.playSound(sound, 1); 
             this.pauseMusic();
+            this.resetGame();
         }
     }
 
@@ -323,13 +338,14 @@ class World {
         this.music.volume = 0;
     }
 
-    
-    playSoundEndOfGame(sound){
-        this.playSound(sound, 1);       
+
+    resetGame(){      
+        this.soundOn = false;
+        clearInterval(this.slowInterval);
+        clearInterval(this.fastInterval);
         setTimeout(()=>{
-            this.soundOn = false;
             this.restartGame(); 
-        }, 4000);
+        }, 4000)
     }
 
 
