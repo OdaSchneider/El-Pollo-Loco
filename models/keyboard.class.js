@@ -93,14 +93,12 @@ class Keyboard{
      * and activates/inactivates corresponding variables to move left
      */
     moveLeftTouch(){
-        document.getElementById('btnLeft').addEventListener('touchstart', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnLeft').addEventListener('touchstart', () =>{
             this.LEFT= true;
             document.getElementById('btnLeft').classList.add('buttonOnTouch');
         });
 
-        document.getElementById('btnLeft').addEventListener('touchend', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnLeft').addEventListener('touchend', () =>{
             this.LEFT= false;
             document.getElementById('btnLeft').classList.remove('buttonOnTouch');
         });
@@ -112,14 +110,12 @@ class Keyboard{
      * and activates/inactivates corresponding variables to move right
      */
     moveRightTouch(){
-        document.getElementById('btnRight').addEventListener('touchstart', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnRight').addEventListener('touchstart', () =>{
             this.RIGHT= true;
             document.getElementById('btnRight').classList.add('buttonOnTouch');
         });
 
-        document.getElementById('btnRight').addEventListener('touchend', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnRight').addEventListener('touchend', () =>{
             this.RIGHT= false;
             document.getElementById('btnRight').classList.remove('buttonOnTouch');
         });
@@ -131,14 +127,12 @@ class Keyboard{
      * and activates/inactivates corresponding variables to jump
      */
     jumpTouch(){
-        document.getElementById('btnJump').addEventListener('touchstart', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnJump').addEventListener('touchstart', () =>{
             this.SPACE= true;
             document.getElementById('btnJump').classList.add('buttonOnTouch');
         });
 
-        document.getElementById('btnJump').addEventListener('touchend', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnJump').addEventListener('touchend', () =>{
             this.SPACE= false;
             document.getElementById('btnJump').classList.remove('buttonOnTouch');
         });
@@ -150,14 +144,12 @@ class Keyboard{
      * and activates/inactivates corresponding variables to thorw bottle
      */
     throwBottleTouch(){
-        document.getElementById('btnThrow').addEventListener('touchstart', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnThrow').addEventListener('touchstart', () =>{
             this.D= true;
             document.getElementById('btnThrow').classList.add('buttonOnTouch');
         });
 
-        document.getElementById('btnThrow').addEventListener('touchend', (e) =>{
-            e.preventDefault();
+        document.getElementById('btnThrow').addEventListener('touchend', () =>{
             this.D= false;
             document.getElementById('btnThrow').classList.remove('buttonOnTouch');
         });

@@ -32,7 +32,6 @@ function startGame(){
 function addMenuButtons(){
    hideElement('startContainer');
    document.getElementById('menuButtonLine').classList.add('gameMenuButtonLine');
-   hideElement('fullscreenButton');
 }
 
 
@@ -147,6 +146,7 @@ function fullscreen(){
     document.getElementById('container').classList.add('fullscreen');
     document.getElementById('canvas').classList.add('canvasFullscreen');
     document.getElementById('fullscreenButton').setAttribute('onclick', `javascript: closeFullscreen()`);
+    closeMenu();
 }
 
 
