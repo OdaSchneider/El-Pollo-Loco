@@ -242,6 +242,11 @@ canvas{
     height: 24px;
 }
 
+.controlImageTouch{
+    width: 24px;
+    height: 24px;
+}
+
 .closeMenu{
     width: 100%;
     display: flex;
@@ -562,5 +567,21 @@ canvas{
     p{
         margin-top: 8px;
         margin-bottom: 8px;
+    }
+  }
+
+  @media (pointer: coarse){
+    .controlImageTouch{
+        display: block;
+    }
+  }
+
+  @media not (pointer: coarse){
+    .controlImage{
+        display: block;
+    }
+
+    .hud{
+        display: none;
     }
   }

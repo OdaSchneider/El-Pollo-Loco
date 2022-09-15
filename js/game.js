@@ -2,16 +2,14 @@ let canvas;
 let world;
 let keyboard;
 
-/**
- * definies canvas element
- */
+
 function init(){
     canvas = document.getElementById('canvas');
 }
 
 
 /**
- * load level1, creates classes keybord and world 
+ * Load level1, creates classes keybord and world 
  * and start the game by hiding startscreen and loading class world
  */
 function startGame(){
@@ -26,7 +24,7 @@ function startGame(){
 
 
 /**
- * hide buttons from startscreen or 
+ * Hide buttons from startscreen or 
  * assigns a new style to them for use inside the game
  */
 function addMenuButtons(){
@@ -35,45 +33,31 @@ function addMenuButtons(){
 }
 
 
-/**
- * shows menu settings
- */
 function settings(){
     hideElementAnimated('controlMenu');
     showElementAnimated('settingsMenu');
 }
 
 
-/**
- * shows menu control
- */
 function control(){
     hideElementAnimated('settingsMenu');
     showElementAnimated('controlMenu');
 }
 
 
-/**
- * close menu
- */
 function closeMenu(){
     hideElementAnimated('settingsMenu');
     hideElementAnimated('controlMenu');
 }
 
 
-/**
- * prevents menu close onclick
- */
 function doNotClose(event){
     event.stopPropagation();
 }
 
 
 /**
- * displays element
- * 
- * @param {string} id - ID of an element
+ * @param {string} id - ID of an HTML-Element
  */
 function showElement(element) {
     document.getElementById(`${element}`).classList.remove('d-none');
@@ -81,7 +65,7 @@ function showElement(element) {
 
 
 /**
- * displays element with transition of opacity
+ * Displays element with transition of opacity
  * 
  * @param {string} id - ID of an element
  */
@@ -94,8 +78,6 @@ function showElementAnimated(element) {
 
 
 /**
- * hides element
- * 
  * @param {string} id - ID of an element
  */
 function hideElement(element) {
@@ -104,7 +86,7 @@ function hideElement(element) {
 
 
 /**
- * hides element with transition of opacity
+ * Hides element with transition of opacity
  * 
  * @param {string} id - ID of an element
  */
@@ -117,7 +99,7 @@ function hideElementAnimated(element) {
 
 
 /**
- * checks if sound is turned on
+ * Checks if sound is turned on
  * 
  * @returns {boolean}
  */
@@ -127,7 +109,7 @@ function soundOn(){
 
 
 /**
- * checks if music is turned on
+ * Checks if music is turned on
  * 
  * @returns {boolean}
  */
@@ -137,7 +119,7 @@ function musicOn(){
 
 
 /**
- * opens full screen mode and gives appropriate style to elements and
+ * Opens full screen mode and gives appropriate style to elements and
  * toggles button function from open to close fullscreen
  */
 function fullscreen(){
@@ -150,9 +132,6 @@ function fullscreen(){
 }
 
 
-/**
- * closes fullscreen
- */
 function closeFullscreen(){
     document.exitFullscreen();
     document.getElementById('container').classList.remove('fullscreen');

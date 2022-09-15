@@ -1,4 +1,4 @@
-class DrawableObjects{
+class DrawableObject{
     x = 120;
     y = 175;
     height = 250;
@@ -17,7 +17,7 @@ class DrawableObjects{
 
     
     /**
-     * loads the start image
+     * Loads the start image
      * 
      * @param {string} path - Image path 
      */
@@ -28,7 +28,7 @@ class DrawableObjects{
 
 
     /**
-     * loads array of images and moves images to another array
+     * Loads array of images and moves images to another array
      * 
      * @param {Array} arr - array of Images used for animation
      */
@@ -41,8 +41,9 @@ class DrawableObjects{
 
     }
 
+    
     /**
-     * draw all canvas elements
+     * Draws all canvas elements
      * 
      * @param {canvas 2D context} ctx - provides context for the drawing surface of a canvas element
      */

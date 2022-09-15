@@ -1,4 +1,4 @@
-class Endscreen extends DrawableObjects{
+class Endscreen extends DrawableObject{
     
     width = 720;
     height = 480;

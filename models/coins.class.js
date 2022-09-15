@@ -23,12 +23,10 @@ class Coin extends MovableObject{
     }
 
     /**
-     * submits array of images coin animation
+     * Submits array of images coin animation
      */
     animate() {
-        setInterval(() => {
-            this.playAnimation(this.imagesCoin);
-        },300);
+        setInterval(() => this.playAnimation(this.imagesCoin),300);
     }
 
 }

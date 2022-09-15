@@ -1,4 +1,4 @@
-class BottleStatusBar extends DrawableObjects{
+class BottleStatusBar extends DrawableObject{
 
     bottleDepot = [];
     collectedBottles = 0;

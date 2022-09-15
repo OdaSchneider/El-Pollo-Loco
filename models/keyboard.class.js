@@ -13,7 +13,7 @@ class Keyboard{
 
 
     /**
-     * calls functions for different keypress Events
+     * Calls functions for different keypress Events
      * movement navigation for keyboard
      */
     keyPressEvents(){
@@ -23,7 +23,7 @@ class Keyboard{
 
 
     /**
-     * determines keydown events and activates corresponding variables
+     * Determines keydown events and activates corresponding variables
      */
     keydownEvent(){
         window.addEventListener("keydown" , (event) => {
@@ -50,7 +50,7 @@ class Keyboard{
 
 
     /**
-     * determines keyup events and inactivates corresponding variables
+     * Determines keyup events and inactivates corresponding variables
      */
     keyupEvent(){
         window.addEventListener("keyup" , (event) => {
@@ -77,7 +77,7 @@ class Keyboard{
 
 
     /**
-     * calls functions for different touch Events
+     * Calls functions for different touch Events
      * movement navigation for smartphone
      */
     touchEvents(){
@@ -89,7 +89,7 @@ class Keyboard{
 
 
     /**
-     * determines touch events on certain Button 
+     * Determines touch events on certain Button 
      * and activates/inactivates corresponding variables to move left
      */
     moveLeftTouch(){
@@ -106,7 +106,7 @@ class Keyboard{
 
 
     /**
-     * determines touch events on certain Button 
+     * Determines touch events on certain Button 
      * and activates/inactivates corresponding variables to move right
      */
     moveRightTouch(){
@@ -123,7 +123,7 @@ class Keyboard{
 
 
     /**
-     * determines touch events on certain Button 
+     * Determines touch events on certain Button 
      * and activates/inactivates corresponding variables to jump
      */
     jumpTouch(){
@@ -140,7 +140,7 @@ class Keyboard{
 
 
     /**
-     * determines touch events on certain Button 
+     * Determines touch events on certain Button 
      * and activates/inactivates corresponding variables to thorw bottle
      */
     throwBottleTouch(){

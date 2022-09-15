@@ -28,11 +28,9 @@ class BottleSplash extends MovableObject{
 
 
     /**
-     * submits array of images for bottle splash animation
+     * Submits array of images for bottle splash animation
      */
     animate() {
-        setInterval(() => {
-            this.playAnimation(this.imagesBottleSplash);
-        }, 200);
+        setInterval(() => this.playAnimation(this.imagesBottleSplash), 200);
     }
 }

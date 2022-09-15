@@ -1,4 +1,4 @@
-class CoinStatusBar extends DrawableObjects{
+class CoinStatusBar extends DrawableObject{
 
     collectedCoins = 0;
 

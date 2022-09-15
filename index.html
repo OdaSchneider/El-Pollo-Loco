@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="./img/4_enemie_boss_chicken/3_attack/G16.png">
     <script src='./models/draw-world.class.js'></script>
     <script src='./models/world.class.js'></script>
-    <script src='./models/drawable-objects.class.js'></script>
+    <script src='./models/drawable-object.class.js'></script>
     <script src='./models/movable-object.class.js'></script>
     <script src='./models/throwable-objects.class.js'></script>
     <script src='./models/keyboard.class.js'></script>
@@ -90,22 +90,26 @@
             <div onclick="doNotClose(event)" id="control" class="menu">
                 <div class="d-flex alignCenter spaceBetween">
                     <p>Move right</p>
-                    <img class="controlImage" src="img/icons/arrow-right.ico">
+                    <img class="controlImage d-none" src="img/icons/arrow-right.ico">
+                    <img class="controlImageTouch d-none" src="img/icons/arrow-right.ico">
                 </div>
 
                 <div class="d-flex alignCenter spaceBetween">
                     <p>Move left</p>
-                    <img class="controlImage" src="img/icons/arrow-left.ico">
+                    <img class="controlImage d-none" src="img/icons/arrow-left.ico">
+                    <img class="controlImageTouch d-none" src="img/icons/arrow-left.ico">
                 </div>
 
                 <div class="d-flex alignCenter spaceBetween">
                     <p>Jump</p>
-                    <img class="controlImage" src="img/icons/space.ico">
+                    <img class="controlImage d-none" src="img/icons/space.ico">
+                    <img class="controlImageTouch d-none" src="img/icons/arrow-up.ico">
                 </div>
 
                 <div class="d-flex alignCenter spaceBetween">
                     <p>Throw Bottle</p>
-                    <img class="controlImage" src="img/icons/letter-d.ico">
+                    <img class="controlImage d-none" src="img/icons/letter-d.ico">
+                    <img class="controlImageTouch d-none" src="img/icons/throw.ico">
                 </div>
 
                 <div class="closeMenu">

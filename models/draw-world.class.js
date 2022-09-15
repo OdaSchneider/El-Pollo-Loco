@@ -2,7 +2,7 @@ class DrawWorld{
 
 
     /**
-     * calls functions to draw all elements 
+     * Calls functions to draw all elements 
      */
        drawWorld() {
         this.clearCanvas();
@@ -14,7 +14,7 @@ class DrawWorld{
 
 
     /**
-     * clears drawed elements 
+     * Clears drawed elements 
      */
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -22,7 +22,7 @@ class DrawWorld{
 
 
     /**
-     * is moving camera and calls functions to draw level components
+     * Is moving camera and calls functions to draw level components
      */
     drawLevel() {
         this.ctx.translate(this.cameraX, 0);
@@ -33,18 +33,12 @@ class DrawWorld{
     }
 
 
-    /**
-     * draws background elements
-     */
     drawBackground(){
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
     }
 
 
-    /**
-     * draws background items
-     */
     drawItems(){
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
@@ -54,9 +48,6 @@ class DrawWorld{
     }
 
 
-    /**
-     * draws background game charecters
-     */
     drawGameCharacters(){
         this.addObjectsToMap(this.level.smallEnemies);
         this.addObjectsToMap(this.level.enemies);
@@ -66,9 +57,6 @@ class DrawWorld{
     }
 
 
-    /**
-     * draws background fixed objects
-     */
     drawFixedObjects() {
         this.addToMap(this.healthStatus);
         this.addToMap(this.coinStatus);
@@ -78,30 +66,22 @@ class DrawWorld{
     }
 
 
-    /**
-     * draws background health status endboss
-     */
     drawHealthStatusEndboss() {
-        if (this.character.reachedEndboss(this.endboss, 520)) {
+        if (this.character.reachedEndboss(this.endboss, 520))
             this.addToMap(this.healthStatusEndboss);
-        }
     }
 
 
-    /**
-     * draws background endscreen
-     */
     drawEndscreen(){
-        if(this.character.endGame){
+        if(this.character.endGame)
             this.addToMap(this.lost);
-        } else if(this.endboss.endGame){
+        else if(this.endboss.endGame)
             this.addToMap(this.gameOver);
-        }
     }
 
 
     /**
-     * draws number of collected items
+     * Draws number of collected items
      */
     drawCollectedItems() {
         this.ctx.font = '30px Comic Sans MS';
@@ -111,9 +91,6 @@ class DrawWorld{
     }
 
 
-    /**
-     * repeat draw function
-     */
     repeatDrawFunction() {
         self = this;
         requestAnimationFrame(function () {
@@ -123,39 +100,31 @@ class DrawWorld{
 
 
     /**
-     * get single elements from JASON
-     * 
      * @param {array} objects 
      */
     addObjectsToMap(objects) {
-        objects.forEach(object => {
-            this.addToMap(object);
-        });
+        objects.forEach(object => this.addToMap(object));
     }
 
 
     /**
-     * checks if direction is changed and add objects to map
+     * Checks if direction is changed and add objects to map
      * 
-     * @param {object} object - game element
+     * @param {DrawableObject} object - game element
      */
     addToMap(object) {
-        if (object.changeDirection) {
+        if (object.changeDirection) 
             this.flipImage(object);
-        }
 
         object.draw(this.ctx);
 
-        if (object.changeDirection) {
+        if (object.changeDirection)
             this.flipImageBack(object);
-        }
     }
 
 
     /**
-     * flips image if direction is changed
-     * 
-     * @param {object} object - game element
+     * @param {DrawableObject} object - game element
      */
     flipImage(object) {
         this.ctx.save();
@@ -166,9 +135,7 @@ class DrawWorld{
 
 
     /**
-     * flips image if direction is changed
-     * 
-     * @param {object} object - game element
+     * @param {DrawableObject} object - game element
      */
     flipImageBack(object) {
         this.ctx.restore();

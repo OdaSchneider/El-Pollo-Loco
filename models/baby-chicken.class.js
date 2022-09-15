@@ -30,16 +30,12 @@ class BabyChicken extends MovableObject {
 
 
     /**
-    * calls a function to move chicken and 
+    * Calls a function to move chicken and 
     * submits array of images for walking animation
     */
     walking() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 80);
+        setInterval(() => this.moveLeft(), 1000 / 80);
 
-        setInterval(() => {
-            this.playAnimation(this.imagesChickenWalking);
-        }, 100);
+        setInterval(() => this.playAnimation(this.imagesChickenWalking), 100);
     }
 }

@@ -1,4 +1,4 @@
-class HealthStatusBar extends DrawableObjects{
+class HealthStatusBar extends DrawableObject{
     
     lifeInPercent = 100;
 
@@ -24,7 +24,7 @@ class HealthStatusBar extends DrawableObjects{
 
 
     /**
-     * sets healthbar image corresponding to life points in percent
+     * Sets healthbar image corresponding to life points in percent
      * 
      * @param {number} percentage - life points in percent
      */
@@ -36,23 +36,22 @@ class HealthStatusBar extends DrawableObjects{
 
 
     /**
-     * returns index of corresponding image for upper function
+     * Returns index of corresponding image for upper function
      * 
      * @returns {number}
      */
     setSatusbar(){
-        if(this.lifeInPercent == 100){
+        if(this.lifeInPercent == 100)
             return 5;
-        }else if (this.lifeInPercent > 80){
+        else if (this.lifeInPercent > 80)
             return 4;
-        }else if (this.lifeInPercent > 60){
+        else if (this.lifeInPercent > 60)
             return 3;
-        }else if (this.lifeInPercent > 40){
+        else if (this.lifeInPercent > 40)
             return 2;
-        }else if (this.lifeInPercent > 20){
+        else if (this.lifeInPercent > 20)
             return 1;
-        }else{
+        else
             return 0;
-        }
     }
 }

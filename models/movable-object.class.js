@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObjects {
+class MovableObject extends DrawableObject {
 
     speed = 0.15;
     speedY = 0;
@@ -11,7 +11,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * function sets one image after another to animate movement
+     * Function sets one image after another to animate movement
      * 
      * @param {Array} images - array of Images used for animation
      */
@@ -24,7 +24,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * increases the x coordinate and moves objects to the right
+     * Increases the x coordinate and moves objects to the right
      */
     moveRight() {
         this.x += this.speed;
@@ -32,7 +32,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * decreases the x coordinate and moves objects to the left
+     * Decreases the x coordinate and moves objects to the left
      */
     moveLeft() {
         this.x -= this.speed;
@@ -40,7 +40,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * sets gravity on elements that move on y-axis (jump)
+     * Sets gravity on elements that move on y-axis (jump)
      */
     applyGravity() {
         setInterval(() => {
@@ -53,23 +53,21 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * returns character after jump back to the ground
+     * Returns object back to the ground
      * or lets them fall out of game
      * 
      * @returns {boolean}
      */
     aboveGround() {
-        if (this instanceof ThrowableObjects || this.isDead()) {
+        if (this instanceof ThrowableObjects || this.isDead())
             return true;
-        }
-        else {
+        else
             return this.y < 175;
-        }
     }
 
 
     /**
-     * moves character on y-axis to animate jump
+     * Moves character on y-axis to animate jump
      * 
      * @param {number} speed - speed to move on y-axis
      */
@@ -79,23 +77,62 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * determines coordinates of two objects and if they are colliding
+     * Determines coordinates of two objects and if they are colliding
      * offset value adjust object size
      * 
      * @param {object} object - game character
      * @returns {boolean}
      */
     isColliding(object) {
-        return this.x + this.width - this.offset.right > object.x + object.offset.left &&
-            this.y + this.height - this.offset.bottom > object.y + object.offset.top &&
-            this.x + this.offset.left < object.x + object.width - object.offset.right &&
-            this.y + this.offset.top < object.y + object.height - object.offset.bottom;
+        return  this.rightBorder() > this.leftObjectBorder(object) &&
+            this.bottomBorder() >  this.topObjectBorder(object) &&
+            this.leftBorder() < this.rightObjectBorder(object) &&
+            this.topBorder() < this.bottomObjectBorder(object);
+    }
+
+
+    rightBorder(){
+        return this.x + this.width - this.offset.right;
+    }
+
+
+    leftBorder(){
+        return this.x + this.offset.left
+    }
+
+
+    topBorder(){
+        return this.y + this.offset.top;
+    }
+
+
+    bottomBorder(){
+        return this.y + this.height - this.offset.bottom;
+    }
+
+
+    rightObjectBorder(object){
+        return object.x + object.width - object.offset.right;
+    }
+
+
+    leftObjectBorder(object){
+        return object.x + object.offset.left;
+    }
+
+
+    topObjectBorder(object){
+        return object.y + object.offset.top;
+    }
+
+
+    bottomObjectBorder(object){
+        return object.y + object.height - object.offset.bottom;
     }
 
 
     /**
-     * subtracts damage from energy and
-     * takes current time
+     * Subtracts damage from energy and takes current time
      * 
      * @param {number} damage 
      */
@@ -110,20 +147,19 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * adds value of energy
+     * Adds value of energy
      * 
      * @param {number} life 
      */
     heal(life){
         this.energy += life;
-        if (this.energy > 100) {
+        if (this.energy > 100)
             this.energy = 100;
-        }
     }
 
 
     /**
-     * takes the time span from the last hit 
+     * Takes the time span from the last hit 
      * to the current time and sets a time limit
      * 
      * @returns {boolean}
@@ -135,7 +171,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * verifies if character is dead or not
+     * Verifies if character is dead or not
      * 
      * @returns {boolean}
      */
@@ -145,7 +181,7 @@ class MovableObject extends DrawableObjects {
 
 
     /**
-     * determines coordinates of two objects 
+     * Determines coordinates of two objects 
      * and if they are in the given distance
      * offset value adjust object size
      * 
@@ -154,6 +190,6 @@ class MovableObject extends DrawableObjects {
      * @returns {boolean}
      */
     reachedEndboss(object, distance){
-        return this.x + this.width + distance -this.offset.right > object.x + object.offset.left
+        return this.rightBorder() + distance > this.leftObjectBorder(object);
     }
 }

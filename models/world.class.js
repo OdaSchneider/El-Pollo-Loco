@@ -54,21 +54,14 @@ class World extends DrawWorld {
 
 
     /**
-     * defines two diffrent Intervals for calling functions
+     * Defines two diffrent Intervals for calling functions
      */
     run() {
-        this.slowInterval = setInterval(() => {
-            this.slowIntervalAction();
-        }, 300);
-        this.fastInterval = setInterval(() => {
-            this.fastIntervalAction();
-        }, 1000 / 60);
+        this.slowInterval = setInterval(() => this.slowIntervalAction(), 300);
+        this.fastInterval = setInterval(() => this.fastIntervalAction(), 1000 / 60);
     }
 
 
-    /**
-     * calls functions for slower Interval
-     */
     slowIntervalAction(){
         this.checkThrowObject();
         this.checkCollisionEnemy();
@@ -77,9 +70,6 @@ class World extends DrawWorld {
     }
 
 
-    /**
-     * calls functions for faster Interval
-     */
     fastIntervalAction(){
         this.checkCollisionItems();
         this.checkJumpOnEnemy();
@@ -90,7 +80,7 @@ class World extends DrawWorld {
 
 
     /**
-     * sets end of level on x-axis
+     * Sets end of level on x-axis
      */
     setLevelEnd(){
         this.levelEnd = this.endboss.x;
@@ -98,7 +88,7 @@ class World extends DrawWorld {
 
 
     /**
-     * checks if sound is on or not
+     * Checks if sound is on or not
      * 
      * @param {object} sound - audio file
      * @param {number} volume 
@@ -107,15 +97,13 @@ class World extends DrawWorld {
         if(soundOn()){
             sound.play();
             sound.volume = volume;
-        }else{
+        } else{
             this.pauseSound(sound);
         }
     }
 
 
     /**
-     * pauses sound
-     * 
      * @param {object} sound - audio file
      */
     pauseSound(sound){
@@ -125,21 +113,18 @@ class World extends DrawWorld {
 
 
     /**
-     * checks if sound is on or not
+     * Checks if sound is on or not
      */
     playMusic() {
         if(musicOn()){
             this.music.play();
             this.music.volume = 0.2;
-        }else{
+        } else{
             this.pauseMusic();
         }
     }
 
 
-    /**
-     * pauses sound
-     */
     pauseMusic(){
         this.music.pause();
         this.music.volume = 0;
@@ -147,20 +132,16 @@ class World extends DrawWorld {
 
 
     /**
-     * gets all enemies to check if they are colliding
+     * Gets all enemies to check if they are colliding
      */
     checkCollisionEnemy() {
-        this.level.enemies.forEach((enemy) => {
-            this.collision(enemy, 5);
-        });
-        this.level.smallEnemies.forEach((enemy) => {
-            this.collision(enemy, 2);
-        });
+        this.level.enemies.forEach((enemy) => this.collision(enemy, 5));
+        this.level.smallEnemies.forEach((enemy) => this.collision(enemy, 2));
     }
 
 
     /**
-     * checks collision and sets the damage
+     * Checks collision and sets the damage
      * 
      * @param {object} enemy - enemy that collides
      * @param {number} damage - damage that costs collision
@@ -174,11 +155,11 @@ class World extends DrawWorld {
 
 
     /**
-     * checks collision with endboss and sets the damage
+     * Checks collision with endboss and sets the damage
      * starts attack animation endboss
      */
     checkCollisionEndboss(){
-        if (this.character.reachedEndboss(this.endboss, 50) && !this.endboss.isDead()) {
+        if (this.canCollidEndboss()) {
             this.endboss.attack = true;
             this.character.hit(10);
             this.healthStatus.setPercentage(this.character.energy);
@@ -188,33 +169,42 @@ class World extends DrawWorld {
     }
 
 
+    canCollidEndboss(){
+        return this.character.reachedEndboss(this.endboss, 50) && 
+        !this.endboss.isDead();
+    }
+
+
     /**
-     * gets all enemies to check if character is colliding threw jumping
+     * Gets all enemies to check if character is colliding threw jumping
      */
      checkJumpOnEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.aboveGround() && this.character.speedY < 0) {
+            if (this.canJumpOnEnemy(enemy))
                 this.deadEnemy(enemy);
-            }
         });
     }
 
 
     /**
-     * gets all enemies to check if character is colliding threw jumping
+     * Gets all enemies to check if character is colliding threw jumping
      */
     checkJumpOnSmallEnemy() {
         this.level.smallEnemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.aboveGround() && this.character.speedY < 0) {
+            if (this.canJumpOnEnemy(enemy))
                 this.deadSmallEnemy(enemy);
-            }
         });
     }
 
 
+    canJumpOnEnemy(enemy){
+        return this.character.isColliding(enemy) && 
+        this.character.aboveGround() && 
+        this.character.speedY < 0
+    }
+
+
     /**
-     * animats dead enemy
-     * 
      * @param {object} enemy - enemy that dies
      */
     deadEnemy(enemy) {
@@ -222,15 +212,11 @@ class World extends DrawWorld {
         this.deadEnemies.push(deadChicken);
         this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
         this.playSound(this.soundDeadChicken, 0.2);
-        setTimeout(() => {
-            this.deadEnemies.splice(deadChicken);
-        }, 1000);
+        setTimeout(() => this.deadEnemies.splice(deadChicken), 1000);
     }
 
 
-    /**
-     * animats dead enemy
-     * 
+    /** 
      * @param {object} enemy - enemy that dies
      */
     deadSmallEnemy(enemy) {
@@ -238,20 +224,18 @@ class World extends DrawWorld {
         this.deadEnemies.push(deadBabyChicken);
         this.level.smallEnemies.splice(this.level.smallEnemies.indexOf(enemy), 1);
         this.playSound(this.soundDeadBabyChicken, 1);
-        setTimeout(() => {
-            this.deadEnemies.splice(deadBabyChicken);
-        }, 1000);
+        setTimeout(() => this.deadEnemies.splice(deadBabyChicken), 1000);
     }
 
 
     /**
-     * successively checks different possible states for fight
+     * Successively checks different possible states for fight
      * and sets sound effects
      */
     fightEndboss() {
         if(this.endboss.isDead()){
             this.pauseSound(this.soundEndboss);
-        } else if (this.character.reachedEndboss(this.endboss, 520) && !this.character.isDead()) {
+        } else if (this.canFightEndboss()) {
             this.playSound(this.soundEndboss, 0.8);
             this.music.pause();
             this.checkStartWalkingEndboss();
@@ -262,18 +246,23 @@ class World extends DrawWorld {
     }
 
 
-    /**
-     * activates endboss movement if is reached
-     */
-    checkStartWalkingEndboss(){
-        if (this.character.reachedEndboss(this.endboss, 480)){
-            this.endboss.startWalking = true;
-        }
+    canFightEndboss(){
+        return this.character.reachedEndboss(this.endboss, 520) && 
+        !this.character.isDead();
     }
 
 
     /**
-     * calls functions for every collectable item
+     * Activates endboss movement if is reached
+     */
+    checkStartWalkingEndboss(){
+        if (this.character.reachedEndboss(this.endboss, 480))
+            this.endboss.startWalking = true;
+    }
+
+
+    /**
+     * Calls functions for every collectable item
      */
     checkCollisionItems() {
         this.checkCollisionCoin();
@@ -284,7 +273,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animates coin collection and adds them in the statusbar
+     * Animates coin collection and adds them in the statusbar
      */
     checkCollisionCoin() {
         this.level.coins.forEach((coin) => {
@@ -299,7 +288,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animates bottle collection and adds them in the statusbar
+     * Animates bottle collection and adds them in the statusbar
      */
     checkCollectBottle() {
         this.level.bottles.forEach((bottle) => {
@@ -315,7 +304,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animates heart collection and sets life points
+     * Animates heart collection and sets life points
      */
     checkCollisionHeart() {
         this.level.hearts.forEach((heart) => {
@@ -331,7 +320,7 @@ class World extends DrawWorld {
 
 
     /**
-     * calls function for bottle collision
+     * Calls function for bottle collision
      */
     checkCollisionThrownBottle() {
         this.bottleCollisionSmallEnemy();
@@ -341,7 +330,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animats bottle collision with enemy
+     * Animats bottle collision with enemy
      */
     bottleCollisionSmallEnemy() {
         this.throwableObject.forEach((bottle) => {
@@ -356,7 +345,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animats bottle collision with enemy
+     * Animats bottle collision with enemy
      */
     bottleCollisionEnemy() {
         this.throwableObject.forEach((bottle) => {
@@ -371,7 +360,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animats bottle collision with endboss and set damage
+     * Animats bottle collision with endboss and set damage
      */
     bottleCollisionEndboss() {
         this.throwableObject.forEach((bottle) => {
@@ -385,7 +374,7 @@ class World extends DrawWorld {
 
 
     /**
-     * animates bottle hit
+     * Animates bottle hit
      * 
      * @param {object} bottle - bottle that hits
      */
@@ -394,19 +383,17 @@ class World extends DrawWorld {
         this.thrownBottle.push(splashedBottle);
         this.playSound(this.soundBrokenBottle, 1);
         this.throwableObject = [];
-        setTimeout(() => {
-            this.thrownBottle.splice(splashedBottle);
-        }, 500);
+        setTimeout(() => this.thrownBottle.splice(splashedBottle), 500);
     }
 
 
     /**
-     * checks condition for throwing bottle and 
+     * Checks condition for throwing bottle and 
      * starts bottle throw
      */
     checkThrowObject() {
         if (this.keyboard.D) {
-            if (!this.character.changeDirection && this.bottleStatus.collectedBottles > 0 && !this.endboss.endGame) {
+            if (this.canThrowBottle()) {
                 let bottle = new ThrowableObjects(this.character.x + 100, this.character.y + 100);
                 this.throwableObject.push(bottle);
                 this.bottleStatus.collectedBottles--;
@@ -416,8 +403,15 @@ class World extends DrawWorld {
     }
 
 
+    canThrowBottle(){
+        return !this.character.changeDirection && 
+        this.bottleStatus.collectedBottles > 0 && 
+        !this.endboss.endGame;
+    }
+
+
     /**
-     * checks for win or lose at end of game
+     * Checks for win or lose at end of game
      */
     endOfGame(){
         if(this.character.endGame){
@@ -431,7 +425,7 @@ class World extends DrawWorld {
 
 
     /**
-     * play end of game sound calls reset function
+     * Play end of game sound calls reset function
      * 
      * @param {object} sound - audio that will play at the end
      */
@@ -443,7 +437,7 @@ class World extends DrawWorld {
 
 
     /**
-     * stop intervals and calls restart function
+     * Stop intervals and calls restart function
      */
     resetGame(sound){      
         clearInterval(this.slowInterval);
@@ -455,7 +449,9 @@ class World extends DrawWorld {
     }
 
 
-    /**reload page */
+    /**
+     * reload page 
+    */
     restartGame(){
         window.location = window.location;
     }

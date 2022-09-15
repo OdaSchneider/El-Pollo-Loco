@@ -73,49 +73,55 @@ class Endboss extends MovableObject {
 
 
     /**
-     * determines the direction of movement to left by keypress
+     * Determines the direction of movement to left by keypress
      * under certain conditions
      */
     animateMovement() {
         setInterval(() => {
-            if (this.startWalking && !this.isDead() && !this.attack && !this.isHurt() && !this.world.character.endGame) {
+            if (this.canMove()) {
                 this.moveLeft();
             }
         }, 100);
     }
 
 
-    /**
-     * determines interval for animation
-     */
-    setAnimation() {
-        this.animationInterval = setInterval(() => {
-            this.animation();
-        }, 100);
+    canMove(){
+        return this.startWalking && 
+        !this.isDead() && 
+        !this.attack && 
+        !this.isHurt() && 
+        !this.world.character.endGame;
     }
 
 
     /**
-     * successively checks different possible states of the endboss 
+     * Determines interval for animation
+     */
+    setAnimation() {
+        this.animationInterval = setInterval(() => this.animation(), 100);
+    }
+
+
+    /**
+     * Successively checks different possible states of the endboss 
      * and calls appropriate function for animation
      */
     animation() {
-        if (this.isDead()) {
+        if (this.isDead())
             this.endbossDead();
-        } else if (this.isHurt()) {
+        else if (this.isHurt())
             this.endbossHurt();
-        } else if (this.attack && !this.world.character.isDead()) {
+        else if (this.attack && !this.world.character.isDead())
             this.endbossAttack();
-        } else if (this.startWalking && !this.world.character.endGame) {
+        else if (this.startWalking && !this.world.character.endGame)
             this.endbossWalk();
-        } else{
+        else
             this.endbossAlert();
-        }
     }
 
 
     /**
-     * submits array of images for animation,
+     * Submits array of images for animation,
      * play final sound and end the game after setten time out
      * with animation to remove final boss
      */
@@ -132,7 +138,7 @@ class Endboss extends MovableObject {
 
 
     /**
-     * submits array of images for animation,
+     * Submits array of images for animation,
      * set corresponding sound effect and increase movement speed
      */
     endbossHurt() {
@@ -143,7 +149,7 @@ class Endboss extends MovableObject {
 
 
     /**
-     * submits array of images for animation
+     * Submits array of images for animation
      */
     endbossAlert() {
         this.playAnimation(this.imagesEndbossAlert);
@@ -151,8 +157,8 @@ class Endboss extends MovableObject {
 
 
     /**
-     * submits array of images for animation
-     * and set corresponding sound effect
+     * Submits array of images for animation
+     * and set sound effect
      */
     endbossAttack() {
         this.playAnimation(this.imagesEndbossAttack);
@@ -161,7 +167,7 @@ class Endboss extends MovableObject {
 
 
     /**
-     * submits array of images for animation
+     * Submits array of images for animation
      */
     endbossWalk() {
         this.playAnimation(this.imagesEndbossWalking);
