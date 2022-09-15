@@ -59,7 +59,7 @@ class MovableObject extends DrawableObjects {
      * @returns {boolean}
      */
     aboveGround() {
-        if (this instanceof ThrowableObjects || this.isDead()) { //trowable objects dont stop to fall
+        if (this instanceof ThrowableObjects || this.isDead()) {
             return true;
         }
         else {

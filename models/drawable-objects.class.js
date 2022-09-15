@@ -15,6 +15,7 @@ class DrawableObjects{
         right: 0
     };
 
+    
     /**
      * loads the start image
      * 
