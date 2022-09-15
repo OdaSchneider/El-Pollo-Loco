@@ -23,6 +23,11 @@ class HealthStatusBar extends DrawableObjects{
     }
 
 
+    /**
+     * sets healthbar image corresponding to life points in percent
+     * 
+     * @param {number} percentage - life points in percent
+     */
     setPercentage(percentage){
         this.lifeInPercent = percentage;
         let path = this.imagesHealth[this.setSatusbar()];
@@ -30,6 +35,11 @@ class HealthStatusBar extends DrawableObjects{
     }
 
 
+    /**
+     * returns index of corresponding image for upper function
+     * 
+     * @returns {number}
+     */
     setSatusbar(){
         if(this.lifeInPercent == 100){
             return 5;

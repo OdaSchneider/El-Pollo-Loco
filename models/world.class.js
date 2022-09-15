@@ -52,6 +52,9 @@ class World {
     }
 
 
+    /**
+     * defines two diffrent Intervals for calling functions
+     */
     run() {
         this.slowInterval = setInterval(() => {
             this.slowIntervalAction();
@@ -62,15 +65,20 @@ class World {
     }
 
 
+    /**
+     * calls functions for slower Interval
+     */
     slowIntervalAction(){
         this.checkThrowObject();
         this.checkCollisionEnemy();
-        this.checkCollisionSmallEnemy();
         this.checkCollisionEndboss();
         this.setLevelEnd();
     }
 
 
+    /**
+     * calls functions for faster Interval
+     */
     fastIntervalAction(){
         this.checkCollisionItems();
         this.checkJumpOnEnemy();
@@ -80,12 +88,20 @@ class World {
     }
 
 
+    /**
+     * sets end of level on x-axis
+     */
     setLevelEnd(){
         this.levelEnd = this.endboss.x;
     }
 
 
-
+    /**
+     * checks if sound is on or not
+     * 
+     * @param {object} sound - audio file
+     * @param {number} volume 
+     */
     playSound(sound, volume){
         if(soundOn()){
             sound.play();
@@ -96,12 +112,20 @@ class World {
     }
 
 
+    /**
+     * pauses sound
+     * 
+     * @param {object} sound - audio file
+     */
     pauseSound(sound){
         sound.pause();
         sound.volume = 0;
     }
 
 
+    /**
+     * checks if sound is on or not
+     */
     playMusic() {
         if(musicOn()){
             this.music.play();
@@ -112,32 +136,47 @@ class World {
     }
 
 
+    /**
+     * pauses sound
+     */
     pauseMusic(){
         this.music.pause();
         this.music.volume = 0;
     }
 
 
+    /**
+     * gets all enemies to check if they are colliding
+     */
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.endboss.endGame) {
-                this.character.hit(5);
-                this.healthStatus.setPercentage(this.character.energy);
-            }
+            this.collision(enemy, 5);
         });
-    }
 
-
-    checkCollisionSmallEnemy() {
         this.level.smallEnemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.endboss.endGame) {
-                this.character.hit(2);
-                this.healthStatus.setPercentage(this.character.energy);
-            }
+            this.collision(enemy, 2);
         });
     }
 
 
+    /**
+     * checks collision and sets the damage
+     * 
+     * @param {object} enemy - enemy that collides
+     * @param {number} damage - damage that costs collision
+     */
+    collision(enemy, damage){
+        if (this.character.isColliding(enemy) && !this.endboss.endGame) {
+            this.character.hit(damage);
+            this.healthStatus.setPercentage(this.character.energy);
+        }
+    }
+
+
+    /**
+     * checks collision with endboss and sets the damage
+     * starts attack animation endboss
+     */
     checkCollisionEndboss(){
         if (this.character.reachedEndboss(this.endboss, 50) && !this.endboss.isDead()) {
             this.endboss.attack = true;
@@ -149,7 +188,10 @@ class World {
     }
 
 
-    checkJumpOnEnemy() {
+    /**
+     * gets all enemies to check if character is colliding threw jumping
+     */
+     checkJumpOnEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.aboveGround() && this.character.speedY < 0) {
                 this.deadEnemy(enemy);
@@ -158,6 +200,9 @@ class World {
     }
 
 
+    /**
+     * gets all enemies to check if character is colliding threw jumping
+     */
     checkJumpOnSmallEnemy() {
         this.level.smallEnemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.aboveGround() && this.character.speedY < 0) {
@@ -167,6 +212,42 @@ class World {
     }
 
 
+    /**
+     * animats dead enemy
+     * 
+     * @param {object} enemy - enemy that dies
+     */
+    deadEnemy(enemy) {
+        let deadChicken = new DeadChicken(enemy.x, enemy.y);
+        this.deadEnemies.push(deadChicken);
+        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+        this.playSound(this.soundDeadChicken, 0.2);
+        setTimeout(() => {
+            this.deadEnemies.splice(deadChicken);
+        }, 1000);
+    }
+
+
+    /**
+     * animats dead enemy
+     * 
+     * @param {object} enemy - enemy that dies
+     */
+    deadSmallEnemy(enemy) {
+        let deadBabyChicken = new DeadBabyChicken(enemy.x, enemy.y);
+        this.deadEnemies.push(deadBabyChicken);
+        this.level.smallEnemies.splice(this.level.smallEnemies.indexOf(enemy), 1);
+        this.playSound(this.soundDeadBabyChicken, 1);
+        setTimeout(() => {
+            this.deadEnemies.splice(deadBabyChicken);
+        }, 1000);
+    }
+
+
+    /**
+     * successively checks different possible states for fight
+     * and sets sound effects
+     */
     fightEndboss() {
         if(this.endboss.isDead()){
             this.pauseSound(this.soundEndboss);
@@ -180,7 +261,9 @@ class World {
         }
     }
 
-
+    /**
+     * activates endboss movement if is reached
+     */
     checkStartWalkingEndboss(){
         if (this.character.reachedEndboss(this.endboss, 480)){
             this.endboss.startWalking = true;
@@ -188,6 +271,9 @@ class World {
     }
 
 
+    /**
+     * calls functions for every collectable item
+     */
     checkCollisionItems() {
         this.checkCollisionCoin();
         this.checkCollectBottle();
@@ -196,6 +282,9 @@ class World {
     }
 
 
+    /**
+     * animates coin collection and adds them in the statusbar
+     */
     checkCollisionCoin() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
@@ -208,6 +297,9 @@ class World {
     }
 
 
+    /**
+     * animates bottle collection and adds them in the statusbar
+     */
     checkCollectBottle() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
@@ -221,6 +313,9 @@ class World {
     }
 
 
+    /**
+     * animates heart collection and sets life points
+     */
     checkCollisionHeart() {
         this.level.hearts.forEach((heart) => {
             if (this.character.isColliding(heart)) {
@@ -234,6 +329,9 @@ class World {
     }
 
 
+    /**
+     * calls function for bottle collision
+     */
     checkCollisionThrownBottle() {
         this.bottleCollisionSmallEnemy();
         this.bottleCollisionEnemy();
@@ -241,6 +339,9 @@ class World {
     }
 
 
+    /**
+     * animats bottle collision with enemy
+     */
     bottleCollisionSmallEnemy() {
         this.throwableObject.forEach((bottle) => {
             this.level.smallEnemies.forEach((enemy) => {
@@ -253,6 +354,9 @@ class World {
     }
 
 
+    /**
+     * animats bottle collision with enemy
+     */
     bottleCollisionEnemy() {
         this.throwableObject.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
@@ -265,6 +369,9 @@ class World {
     }
 
 
+    /**
+     * animats bottle collision with endboss and set damage
+     */
     bottleCollisionEndboss() {
         this.throwableObject.forEach((bottle) => {
             if (this.endboss.isColliding(bottle) && !this.endboss.isDead()) {
@@ -276,28 +383,11 @@ class World {
     }
 
 
-    deadEnemy(enemy) {
-        let deadChicken = new DeadChicken(enemy.x, enemy.y);
-        this.deadEnemies.push(deadChicken);
-        this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-        this.playSound(this.soundDeadChicken, 0.2);
-        setTimeout(() => {
-            this.deadEnemies.splice(deadChicken);
-        }, 1000);
-    }
-
-
-    deadSmallEnemy(enemy) {
-        let deadBabyChicken = new DeadBabyChicken(enemy.x, enemy.y);
-        this.deadEnemies.push(deadBabyChicken);
-        this.level.smallEnemies.splice(this.level.smallEnemies.indexOf(enemy), 1);
-        this.playSound(this.soundDeadBabyChicken, 1);
-        setTimeout(() => {
-            this.deadEnemies.splice(deadBabyChicken);
-        }, 1000);
-    }
-
-
+    /**
+     * animates bottle hit
+     * 
+     * @param {object} bottle - bottle that hits
+     */
     splashedBottle(bottle) {
         let splashedBottle = new BottleSplash(bottle.x, bottle.y);
         this.thrownBottle.push(splashedBottle);
@@ -309,6 +399,10 @@ class World {
     }
 
 
+    /**
+     * checks condition for throwing bottle and 
+     * starts bottle throw
+     */
     checkThrowObject() {
         if (this.keyboard.D) {
             if (!this.character.changeDirection && this.bottleStatus.collectedBottles > 0 && !this.endboss.endGame) {
@@ -321,21 +415,35 @@ class World {
     }
 
 
+    /**
+     * checks for win or lose at end of game
+     */
     endOfGame(){
         if(this.character.endGame){
             let sound = this.soundLost
-            this.playSound(sound, 1); 
-            this.pauseMusic();
-            this.restartGame();
+            playEndSound(sound);
         } else if(this.endboss.endGame){
             let sound = this.soundWon;
-            this.playSound(sound, 1); 
-            this.pauseMusic();
-            this.resetGame();
+            playEndSound(sound);
         }
     }
 
 
+    /**
+     * play end of game sound calls reset function
+     * 
+     * @param {object} sound - audion that will play at the end
+     */
+    playEndSound(sound){
+        this.playSound(sound, 1); 
+        this.pauseMusic();
+        this.restartGame();
+    }
+
+
+    /**
+     * stop intervals and calls restart function
+     */
     resetGame(){      
         this.soundOn = false;
         clearInterval(this.slowInterval);
@@ -346,11 +454,15 @@ class World {
     }
 
 
+    /**reload page */
     restartGame(){
         window.location = window.location;
     }
 
 
+    /**
+     * calls functions to draw all elements 
+     */
     draw() {
         this.clearCanvas();
         this.drawLevel();
@@ -360,11 +472,17 @@ class World {
     }
 
 
+    /**
+     * clears drawed elements 
+     */
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
 
+    /**
+     * is moving camera and calls functions to draw level components
+     */
     drawLevel() {
         this.ctx.translate(this.cameraX, 0);
         this.drawBackground();
@@ -374,12 +492,18 @@ class World {
     }
 
 
+    /**
+     * draws background elements
+     */
     drawBackground(){
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
     }
 
 
+    /**
+     * draws background items
+     */
     drawItems(){
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
@@ -389,6 +513,9 @@ class World {
     }
 
 
+    /**
+     * draws background game charecters
+     */
     drawGameCharacters(){
         this.addObjectsToMap(this.level.smallEnemies);
         this.addObjectsToMap(this.level.enemies);
@@ -398,6 +525,9 @@ class World {
     }
 
 
+    /**
+     * draws background fixed objects
+     */
     drawFixedObjects() {
         this.addToMap(this.healthStatus);
         this.addToMap(this.coinStatus);
@@ -407,6 +537,9 @@ class World {
     }
 
 
+    /**
+     * draws background health status endboss
+     */
     drawHealthStatusEndboss() {
         if (this.character.reachedEndboss(this.endboss, 520)) {
             this.addToMap(this.healthStatusEndboss);
@@ -414,6 +547,9 @@ class World {
     }
 
 
+    /**
+     * draws background endscreen
+     */
     drawEndscreen(){
         if(this.character.endGame){
             this.addToMap(this.lost);
@@ -423,6 +559,9 @@ class World {
     }
 
 
+    /**
+     * draws number of collected items
+     */
     drawCollectedItems() {
         this.ctx.font = '30px Comic Sans MS';
         this.ctx.fillStyle = 'black';
@@ -431,6 +570,9 @@ class World {
     }
 
 
+    /**
+     * repeat draw function
+     */
     repeatDrawFunction() {
         self = this;
         requestAnimationFrame(function () {
@@ -439,6 +581,11 @@ class World {
     }
 
 
+    /**
+     * get single elements from JASON
+     * 
+     * @param {array} objects 
+     */
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
@@ -446,6 +593,11 @@ class World {
     }
 
 
+    /**
+     * checks if direction is changed and add objects to map
+     * 
+     * @param {object} object - game element
+     */
     addToMap(object) {
         if (object.changeDirection) {
             this.flipImage(object);
@@ -459,6 +611,11 @@ class World {
     }
 
 
+    /**
+     * flips image if direction is changed
+     * 
+     * @param {object} object - game element
+     */
     flipImage(object) {
         this.ctx.save();
         this.ctx.translate(object.width, 0);
@@ -467,10 +624,13 @@ class World {
     }
 
 
+    /**
+     * flips image if direction is changed
+     * 
+     * @param {object} object - game element
+     */
     flipImageBack(object) {
         this.ctx.restore();
         object.x = object.x * -1;
     }
-
-
 }

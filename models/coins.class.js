@@ -22,13 +22,12 @@ class Coin extends MovableObject{
         this.animate();
     }
 
-
+    /**
+     * submits array of images coin animation
+     */
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.imagesCoin.length;
-            let path = this.imagesCoin[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            this.playAnimation(this.imagesCoin);
         },300);
     }
 

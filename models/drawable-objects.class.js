@@ -40,7 +40,11 @@ class DrawableObjects{
 
     }
 
-
+    /**
+     * draw all canvas elements
+     * 
+     * @param {canvas 2D context} ctx - provides context for the drawing surface of a canvas element
+     */
     draw(ctx){
         try{        
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -50,13 +54,4 @@ class DrawableObjects{
         }
 
     }
-
-
-
-
-
-
-
-
-
 }

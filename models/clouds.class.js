@@ -13,20 +13,12 @@ class Clouds extends MovableObject {
         super().loadImage(this.imagesClouds[i]);
 
         this.x = x;
-        this.animate();
-    }
-
-
-    /**
-    * calls functions to animate the Clouds
-    */
-    animate() {
         this.movingClouds();
     }
 
 
     /**
-    * changes the x coordinates by the certain value speed to move the Clouds
+    * calls a function to move the Clouds
     */
     movingClouds(){
          setInterval(() => {

@@ -72,6 +72,10 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * determines the direction of movement to left by keypress
+     * under certain conditions
+     */
     animateMovement() {
         setInterval(() => {
             if (this.startWalking && !this.isDead() && !this.attack && !this.isHurt() && !this.world.character.endGame) {
@@ -80,12 +84,21 @@ class Endboss extends MovableObject {
         }, 100);
     }
 
+
+    /**
+     * determines interval for animation
+     */
     setAnimation() {
         this.animationInterval = setInterval(() => {
             this.animation();
         }, 100);
     }
 
+
+    /**
+     * successively checks different possible states of the endboss 
+     * and calls appropriate function for animation
+     */
     animation() {
         if (this.isDead()) {
             this.endbossDead();
@@ -101,6 +114,11 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * submits array of images for animation,
+     * play final sound and end the game after setten time out
+     * with animation to remove final boss
+     */
     endbossDead() {
         this.world.playSound(this.soundDead, 1);
         this.playAnimation(this.imagesEndbossDead);
@@ -113,6 +131,10 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * submits array of images for animation,
+     * set corresponding sound effect and increase movement speed
+     */
     endbossHurt() {
         this.playAnimation(this.imagesEndbossHurt);
         this.world.playSound(this.soundHurt, 0.2);
@@ -120,17 +142,27 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * submits array of images for animation
+     */
     endbossAlert() {
         this.playAnimation(this.imagesEndbossAlert);
     }
 
 
+    /**
+     * submits array of images for animation
+     * and set corresponding sound effect
+     */
     endbossAttack() {
         this.playAnimation(this.imagesEndbossAttack);
         this.world.playSound(this.soundAttack, 0.2);
     }
 
 
+    /**
+     * submits array of images for animation
+     */
     endbossWalk() {
         this.playAnimation(this.imagesEndbossWalking);
     }

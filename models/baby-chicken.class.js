@@ -25,20 +25,13 @@ class BabyChicken extends MovableObject {
         this.x = x + Math.random() * 500;
         this.speed = 0.3 + Math.random() * 0.25;
 
-        this.animate();
-    }
-
-
-    /**
-    * calls functions to animate the Chicken
-    */
-    animate() {
         this.walking();
     }
 
 
     /**
-    * changes the x coordinates by the certain value speed and the images for walking animation
+    * calls a function to move chicken and 
+    * submits array of images for walking animation
     */
     walking() {
         setInterval(() => {

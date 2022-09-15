@@ -90,8 +90,8 @@ class Character extends MovableObject {
 
 
     /**
-    * calls function for the walking direction
-    * changes the images for walking animation and moves the camera
+    * calls functions to determine the walking direction and
+    * moves the camera in certain Interval
     */
     walking() {
         setInterval(() => {
@@ -103,7 +103,8 @@ class Character extends MovableObject {
 
 
     /**
-     * determines the moving direction by keypress and moves the character
+     * determines the direction of movement to right by keypress and 
+     * call function to move the character
      */
     walkingDirectionRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.levelEnd && !this.world.endboss.endGame) {
@@ -113,6 +114,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * determines the direction of movement to left by keypress and 
+     * call function to move the character
+     */
     walkingDirectionLeft() {
         if (this.world.keyboard.LEFT && this.x > 0 && !this.world.endboss.endGame) {
             this.moveLeft();
@@ -121,6 +126,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * determines movement to up by pressing a button and
+     * sets speed for movement
+     */
     jumping() {
         setInterval(() => {
             if (this.world.keyboard.SPACE && !this.aboveGround() && !this.world.endboss.endGame) {
@@ -130,6 +139,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * determines interval for animation
+     */
     setAnimation() {
         this.animationInterval = setInterval(() => {
             this.animation();
@@ -137,7 +149,10 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * successively checks different possible states of the character 
+     * and calls appropriate function for animation
+     */
     animation() {
         if (this.isDead()) {
             this.charakterDead();
@@ -153,6 +168,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * submits array of images for animation,
+     * play final sound and end the game after setten time out
+     */
     charakterDead() {
         this.playAnimation(this.imagesDead);
         this.world.playSound(this.soundDead, 1);
@@ -163,17 +182,24 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * submits array of images for animation
+     * and set corresponding sound effect
+     */
     charakterHurt() {
         this.playAnimation(this.imagesHurt);
         this.world.playSound(this.soundHurt, 0.5);
     }
 
 
+    /**
+     * submits array of images for animation
+     * and set corresponding sound effect for the moment of jump
+     */
     charakterJump() {
         this.playAnimation(this.imagesCharakterJumping);
         if (this.speedY > 0) {
             this.world.playSound(this.soundJump, 0.2);
         }
     }
-
 }

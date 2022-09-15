@@ -18,10 +18,14 @@ class ThrowableObjects extends MovableObject{
         this.throw();
     }
 
+
+    /**
+     * is moving bottle on y-axis and x-axis
+     * and submits array of images for animation
+     */
     throw(){
         this.speedY = 20;
         this.applyGravity();
-
 
         setInterval(() =>{
             this.x += 12;
@@ -30,14 +34,5 @@ class ThrowableObjects extends MovableObject{
         setInterval(() =>{
             this.playAnimation(this.imagesBottleRotation);
         }, 50);
-    }
-
-
-    checkThrowDirection(){
-        if(!this.changeDirection){
-            this.x += 12;
-        } else{
-            this.x -= 12;
-        }
     }
 }

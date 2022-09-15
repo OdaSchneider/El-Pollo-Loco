@@ -6,7 +6,6 @@ class Level{
     bottles;
     hearts;
     backgroundObjects;
-    // levelEnd = 8600;
 
 
     constructor(smallEnemies, enemies, clouds, backgroundObjects, coins, botttles, hearts){
