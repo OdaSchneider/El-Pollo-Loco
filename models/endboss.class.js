@@ -104,11 +104,11 @@ class Endboss extends MovableObject {
             this.endbossDead();
         } else if (this.isHurt()) {
             this.endbossHurt();
-        } else if (this.attack) {
+        } else if (this.attack && !this.world.character.isDead()) {
             this.endbossAttack();
         } else if (this.startWalking && !this.world.character.endGame) {
             this.endbossWalk();
-        } else {
+        } else{
             this.endbossAlert();
         }
     }

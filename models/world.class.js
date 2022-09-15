@@ -251,11 +251,11 @@ class World extends DrawWorld {
     fightEndboss() {
         if(this.endboss.isDead()){
             this.pauseSound(this.soundEndboss);
-        } else if (this.character.reachedEndboss(this.endboss, 520)) {
+        } else if (this.character.reachedEndboss(this.endboss, 520) && !this.character.isDead()) {
             this.playSound(this.soundEndboss, 0.8);
             this.music.pause();
             this.checkStartWalkingEndboss();
-        } else {
+        } else{
             this.pauseSound(this.soundEndboss);
             this.playMusic();
         }
@@ -433,24 +433,24 @@ class World extends DrawWorld {
     /**
      * play end of game sound calls reset function
      * 
-     * @param {object} sound - audion that will play at the end
+     * @param {object} sound - audio that will play at the end
      */
     playEndSound(sound){
         this.playSound(sound, 1); 
         this.pauseMusic();
-        this.restartGame();
+        this.resetGame(sound);
     }
 
 
     /**
      * stop intervals and calls restart function
      */
-    resetGame(){      
-        this.soundOn = false;
+    resetGame(sound){      
         clearInterval(this.slowInterval);
         clearInterval(this.fastInterval);
         setTimeout(()=>{
             this.restartGame(); 
+            this.pauseMusic(sound)
         }, 4000)
     }
 
